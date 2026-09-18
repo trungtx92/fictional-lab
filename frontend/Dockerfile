@@ -8,7 +8,7 @@ RUN npm ci
 COPY . .
 # Vite inlines VITE_* vars at build time, so it must be passed as a build arg,
 # not a runtime env var (Cloud Run env vars have no effect on a static bundle).
-ARG VITE_API_BASE_URL
+ARG VITE_API_BASE_URL=https://sales-website-backend-1039491775944.us-central1.run.app
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
 RUN npm run build
 
