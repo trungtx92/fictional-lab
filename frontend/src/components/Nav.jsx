@@ -11,7 +11,7 @@ const links = [
 export function Nav() {
   return (
     <header className="app-header">
-      <div className="app-header__brand">Sales Website</div>
+      <div className="app-header__brand">Sales Overview Website</div>
       <nav className="app-header__nav">
         {links.map((link) => (
           <NavLink
