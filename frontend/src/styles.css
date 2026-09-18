@@ -1,0 +1,245 @@
+:root {
+  --navy: #1f3a5f;
+  --blue: #2e75b6;
+  --blue-light: #dcebf7;
+  --green: #2e7d5b;
+  --green-light: #ddefe6;
+  --orange: #c9711a;
+  --orange-light: #fbead9;
+  --grey: #5b6470;
+  --grey-light: #eef0f2;
+  --text: #1b1f24;
+  --border: #e1e5ea;
+  --bg: #f7f9fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.5rem;
+  background: var(--navy);
+  color: white;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.app-header__brand {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.app-header__nav {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  color: #cfe0f2;
+  text-decoration: none;
+  padding: 0.4rem 0.7rem;
+  border-radius: 6px;
+  font-size: 0.92rem;
+}
+
+.nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-link--active {
+  background: var(--blue);
+  color: white;
+}
+
+.app-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+h1 {
+  color: var(--navy);
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  color: var(--navy);
+  font-size: 1.15rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.6rem;
+}
+
+a {
+  color: var(--blue);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.text-input {
+  display: block;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  margin-bottom: 1rem;
+  min-width: 240px;
+  background: white;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.85rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.summary-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.summary-card--link:hover {
+  border-color: var(--blue);
+  box-shadow: 0 2px 8px rgba(46, 117, 182, 0.15);
+}
+
+.summary-card__value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.summary-card__label {
+  font-size: 0.85rem;
+  color: var(--grey);
+  margin-top: 0.15rem;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 0.92rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background: var(--grey-light);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.data-table tbody tr:hover {
+  background: #f5f9fc;
+}
+
+.data-table a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.detail-list {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1.5rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.25rem;
+  max-width: 560px;
+}
+
+.detail-list dt {
+  color: var(--grey);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.detail-list dd {
+  margin: 0;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: var(--grey-light);
+  color: var(--grey);
+  text-transform: capitalize;
+}
+
+.pill--success {
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.pill--warning {
+  background: var(--orange-light);
+  color: var(--orange);
+}
+
+.pill--danger {
+  background: #fbe1e1;
+  color: #b3261e;
+}
+
+.status-banner {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.92rem;
+  margin: 1rem 0;
+}
+
+.status-banner--loading {
+  background: var(--blue-light);
+  color: var(--blue);
+}
+
+.status-banner--error {
+  background: #fbe1e1;
+  color: #b3261e;
+}
+
+.status-banner--empty {
+  background: var(--grey-light);
+  color: var(--grey);
+}
