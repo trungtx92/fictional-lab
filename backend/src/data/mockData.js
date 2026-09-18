@@ -10,6 +10,7 @@ export const customers = [
   { customer_id: 6, first_name: "Farid", last_name: "Haidari", email: "farid.haidari@example.com", phone: "+1-202-555-0106", address: "40 Pine Way, Lakeside", created_at: "2024-03-18T10:05:00Z" },
   { customer_id: 7, first_name: "Grace", last_name: "Okafor", email: "grace.okafor@example.com", phone: "+1-202-555-0107", address: "163 Spruce Dr, Hilltown", created_at: "2024-04-09T13:15:00Z" },
   { customer_id: 8, first_name: "Hiro", last_name: "Tanaka", email: "hiro.tanaka@example.com", phone: "+1-202-555-0108", address: "22 Aspen Pl, Hilltown", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 9, first_name: "Trung", last_name: "Pham", email: "trung.pham@example.com", phone: "+1-202-555-0108", address: "8 Gratz St, Hilltown", created_at: "2024-04-27T17:40:00Z" },
 ];
 
 export const stores = [
