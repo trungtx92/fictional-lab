@@ -54,6 +54,7 @@ const rawTransactions = [
   { transaction_id: 13, customer_id: 6, store_id: 3, transaction_date: "2024-05-16T15:15:00Z", payment_method: "cash", status: "completed", items: [{ product_id: 8, quantity: 1 }] },
   { transaction_id: 14, customer_id: 4, store_id: 2, transaction_date: "2024-05-18T10:30:00Z", payment_method: "card", status: "completed", items: [{ product_id: 2, quantity: 1 }, { product_id: 1, quantity: 1 }, { product_id: 3, quantity: 1 }] },
   { transaction_id: 15, customer_id: 7, store_id: 4, transaction_date: "2024-05-20T13:40:00Z", payment_method: "card", status: "completed", items: [{ product_id: 7, quantity: 2 }, { product_id: 6, quantity: 1 }] },
+  { transaction_id: 16, customer_id: 9, store_id: 4, transaction_date: "2024-05-20T13:40:00Z", payment_method: "card", status: "completed", items: [{ product_id: 7, quantity: 2 }, { product_id: 6, quantity: 1 }] },
 ];
 
 const productById = Object.fromEntries(products.map((p) => [p.product_id, p]));
