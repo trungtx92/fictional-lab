@@ -23,7 +23,7 @@ resource "google_sql_database_instance" "fictional_lab_instance" {
 
 resource "google_sql_user" "name" {
   name     = "fictional_lab_user"
-  password = "Password@123"
+  password = var.db_password
   instance = google_sql_database_instance.fictional_lab_instance.name
 }
 
