@@ -1,6 +1,9 @@
 name: Infrastructure Deployment
 on:
   workflow_dispatch:
+defaults:
+  run:
+    working-directory: Infrastructure/CloudSql
 env:
   TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
 
@@ -33,7 +36,7 @@ jobs:
 
       - name: Terraform Validate
         run: terraform validate
-        
+
       - name: Terraform Plan
         run: terraform plan -input=false -out=tfplan
 
