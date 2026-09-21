@@ -1,4 +1,4 @@
-name: Frontend Deployment
+name: Frontend Fictional Lab
 on:
   workflow_dispatch:
 
