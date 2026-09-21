@@ -1,0 +1,47 @@
+name: Infrastructure Cloud SQL Deployment
+on:
+  workflow_dispatch:
+defaults:
+  run:
+    working-directory: Infrastructure/CloudSql
+env:
+  TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
+
+jobs:
+  plan:
+    name: Terraform Plan
+    runs-on: ubuntu-latest
+    environment: development
+    env:
+      TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
+      TF_VAR_region: ${{ secrets.GCP_REGION }}
+      TF_VAR_zone: ${{ secrets.GCP_ZONE }}
+    steps:
+      - name: Check Code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      #- name: Terraform Format
+      #  run: terraform fmt -check
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan -input=false -out=tfplan
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: Infrastructure/CloudSql/tfplan
