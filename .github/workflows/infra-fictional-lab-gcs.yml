@@ -1,9 +1,9 @@
-name: Infrastructure GCS Deployment
+name: Infrastructure Fictional Lab GCS
 on:
   workflow_dispatch:
 defaults:
   run:
-    working-directory: Infrastructure/Gcs
+    working-directory: Infrastructure/FictionalLab/Gcs
 
 jobs:
   plan:
@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/Gcs/tfplan
+          path: Infrastructure/FictionalLab/Gcs/tfplan
   apply:
     name: Terraform Apply
     needs: plan
@@ -60,7 +60,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/Gcs
+          path: Infrastructure/FictionalLab/Gcs
 
       - name: Terraform Init
         run: terraform init -input=false

@@ -1,9 +1,9 @@
-name: Infrastructure Cloud SQL Deployment
+name: Infrastructure Fictional Lab Cloud SQL
 on:
   workflow_dispatch:
 defaults:
   run:
-    working-directory: Infrastructure/CloudSql
+    working-directory: Infrastructure/FictionalLab/CloudSql
 env:
   TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
 
@@ -44,7 +44,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/CloudSql/tfplan
+          path: Infrastructure/FictionalLab/CloudSql/tfplan
   
   apply:
     name: Terraform Apply
@@ -66,7 +66,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/CloudSql
+          path: Infrastructure/FictionalLab/CloudSql
       
       - name: Terraform Init
         run: terraform init -input=false
