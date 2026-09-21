@@ -17,7 +17,7 @@ jobs:
           service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
       - uses: google-github-actions/setup-gcloud@v2
       - run: |
-          gcloud run deploy sales-backend \
-            --source ./Backend \
+          gcloud run deploy fictional-lab-backend \
+            --source ./Backend/Fictional-lab-backend \
             --region us-central1 \
             --allow-unauthenticated
