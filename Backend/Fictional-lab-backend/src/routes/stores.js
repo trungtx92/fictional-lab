@@ -1,39 +1,54 @@
 import { Router } from "express";
-import { stores, transactions } from "../data/mockData.js";
+import { query } from "../db.js";
+import { asyncHandler, parseId } from "../http.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json(stores);
-});
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const { rows } = await query("SELECT * FROM stores ORDER BY store_id");
+    res.json(rows);
+  })
+);
 
-router.get("/:id", (req, res) => {
-  const store = stores.find((s) => s.store_id === Number(req.params.id));
-  if (!store) return res.status(404).json({ error: "Store not found" });
-  res.json(store);
-});
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const id = parseId(req.params.id);
+    const { rows } = id ? await query("SELECT * FROM stores WHERE store_id = $1", [id]) : { rows: [] };
+    if (rows.length === 0) return res.status(404).json({ error: "Store not found" });
+    res.json(rows[0]);
+  })
+);
 
 // Aggregate sales summary for a store — illustrates what the dbt-built
 // analytics model (agg_daily_sales_by_store) would ultimately serve.
-router.get("/:id/sales-summary", (req, res) => {
-  const storeId = Number(req.params.id);
-  const store = stores.find((s) => s.store_id === storeId);
-  if (!store) return res.status(404).json({ error: "Store not found" });
+router.get(
+  "/:id/sales-summary",
+  asyncHandler(async (req, res) => {
+    const id = parseId(req.params.id);
+    const store = id ? await query("SELECT * FROM stores WHERE store_id = $1", [id]) : { rows: [] };
+    if (store.rows.length === 0) return res.status(404).json({ error: "Store not found" });
 
-  const storeTransactions = transactions.filter(
-    (t) => t.store_id === storeId && t.status === "completed"
-  );
-  const totalRevenue = storeTransactions.reduce((sum, t) => sum + t.total_amount, 0);
-  const transactionCount = storeTransactions.length;
-  const averageOrderValue = transactionCount ? totalRevenue / transactionCount : 0;
+    const { rows } = await query(
+      `SELECT COUNT(*)::int AS transaction_count,
+              COALESCE(SUM(total_amount), 0) AS total_revenue
+       FROM transactions
+       WHERE store_id = $1 AND status = 'completed'`,
+      [id]
+    );
+    const { transaction_count, total_revenue } = rows[0];
+    const averageOrderValue = transaction_count ? total_revenue / transaction_count : 0;
 
-  res.json({
-    store_id: storeId,
-    store_name: store.store_name,
-    transaction_count: transactionCount,
-    total_revenue: Math.round(totalRevenue * 100) / 100,
-    average_order_value: Math.round(averageOrderValue * 100) / 100,
-  });
-});
+    res.json({
+      store_id: id,
+      store_name: store.rows[0].store_name,
+      transaction_count,
+      total_revenue: Math.round(total_revenue * 100) / 100,
+      average_order_value: Math.round(averageOrderValue * 100) / 100,
+    });
+  })
+);
 
 export default router;

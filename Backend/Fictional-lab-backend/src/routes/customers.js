@@ -1,34 +1,51 @@
 import { Router } from "express";
-import { customers, transactions } from "../data/mockData.js";
+import { query } from "../db.js";
+import { asyncHandler, parseId } from "../http.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  const { search } = req.query;
-  let result = customers;
-  if (search) {
-    const term = search.toLowerCase();
-    result = result.filter(
-      (c) =>
-        `${c.first_name} ${c.last_name}`.toLowerCase().includes(term) ||
-        c.email.toLowerCase().includes(term)
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const { search } = req.query;
+    if (!search) {
+      const { rows } = await query("SELECT * FROM customers ORDER BY customer_id");
+      return res.json(rows);
+    }
+    // Escape LIKE wildcards so the search stays a plain substring match.
+    const term = `%${String(search).replace(/[\\%_]/g, "\\$&")}%`;
+    const { rows } = await query(
+      `SELECT * FROM customers
+       WHERE first_name || ' ' || last_name ILIKE $1 OR email ILIKE $1
+       ORDER BY customer_id`,
+      [term]
     );
-  }
-  res.json(result);
-});
+    res.json(rows);
+  })
+);
 
-router.get("/:id", (req, res) => {
-  const customer = customers.find((c) => c.customer_id === Number(req.params.id));
-  if (!customer) return res.status(404).json({ error: "Customer not found" });
-  res.json(customer);
-});
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const id = parseId(req.params.id);
+    const { rows } = id ? await query("SELECT * FROM customers WHERE customer_id = $1", [id]) : { rows: [] };
+    if (rows.length === 0) return res.status(404).json({ error: "Customer not found" });
+    res.json(rows[0]);
+  })
+);
 
-router.get("/:id/transactions", (req, res) => {
-  const customerId = Number(req.params.id);
-  const customer = customers.find((c) => c.customer_id === customerId);
-  if (!customer) return res.status(404).json({ error: "Customer not found" });
-  const result = transactions.filter((t) => t.customer_id === customerId);
-  res.json(result);
-});
+router.get(
+  "/:id/transactions",
+  asyncHandler(async (req, res) => {
+    const id = parseId(req.params.id);
+    const customer = id ? await query("SELECT 1 FROM customers WHERE customer_id = $1", [id]) : { rows: [] };
+    if (customer.rows.length === 0) return res.status(404).json({ error: "Customer not found" });
+    const { rows } = await query(
+      "SELECT * FROM transactions WHERE customer_id = $1 ORDER BY transaction_id",
+      [id]
+    );
+    res.json(rows);
+  })
+);
 
 export default router;

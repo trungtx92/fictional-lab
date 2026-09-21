@@ -20,4 +20,5 @@ jobs:
           gcloud run deploy fictional-lab-backend \
             --source ./Backend/Fictional-lab-backend \
             --region us-central1 \
-            --allow-unauthenticated
+            --allow-unauthenticated \
+            --set-secrets "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
