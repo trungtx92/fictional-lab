@@ -18,6 +18,6 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v2
       - run: |
           gcloud run deploy sales-frontend \
-            --source ./frontend \
+            --source ./Frontend \
             --region us-central1 \
             --allow-unauthenticated
