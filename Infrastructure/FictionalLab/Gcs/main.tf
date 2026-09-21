@@ -1,5 +1,5 @@
-resource "google_storage_bucket" "fictional-lab-dev-tfstate" {
-  name = "fictional-lab-dev-tfstate"
+resource "google_storage_bucket" "fictional-lab-tfstate" {
+  name = "fictional-lab-tfstate"
   storage_class = "STANDARD"
   location = var.region
 }

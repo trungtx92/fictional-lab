@@ -1,7 +1,7 @@
 terraform {
   required_version = ">= 1.10"
   backend "gcs" {
-    bucket = "fictional-lab-dev-tfstate"
+    bucket = "fictional-lab-tfstate"
     prefix = "fictional-lab/cloudsql"
   }
   required_providers {
