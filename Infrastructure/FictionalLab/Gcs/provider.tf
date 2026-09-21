@@ -2,7 +2,7 @@ terraform {
   required_version = ">= 1.10"
   backend "gcs" {
     bucket = "fictional-lab-dev-tfstate"
-    prefix = "gcs"
+    prefix = "fictional-lab/gcs"
   }
   required_providers {
     google = {
