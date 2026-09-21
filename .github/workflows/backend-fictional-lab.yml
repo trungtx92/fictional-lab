@@ -21,4 +21,4 @@ jobs:
             --source ./Backend/Fictional-lab-backend \
             --region us-central1 \
             --allow-unauthenticated \
-            --set-secrets "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
+            --set-env-vars "DB_PASSWORD=${{ secrets.DB_PASSWORD }}"
