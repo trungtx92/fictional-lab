@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 defaults:
   run:
-    working-directory: Infrastructure/FictionalLab/BigQuery
+    working-directory: Infrastructure/FictionalLab/Bigquery
 jobs:
   plan:
     name: Terraform Plan
@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/FictionalLab/BigQuery/tfplan
+          path: Infrastructure/FictionalLab/Bigquery/tfplan
   apply:
     name: Terraform Apply
     needs: plan
@@ -59,7 +59,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan
-          path: Infrastructure/FictionalLab/BigQuery
+          path: Infrastructure/FictionalLab/Bigquery
 
       - name: Terraform Init
         run: terraform init -input=false
