@@ -8,7 +8,7 @@ pg.types.setTypeParser(pg.types.builtins.NUMERIC, parseFloat);
 const config = {
   user: process.env.DB_USER || "fictional_lab_user",
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME || "fictional_lab_db",
+  database: process.env.DB_NAME || "fictional_lab_database",
   // db-f1-micro allows very few connections, keep the pool small.
   max: Number(process.env.DB_POOL_MAX) || 5,
 };
