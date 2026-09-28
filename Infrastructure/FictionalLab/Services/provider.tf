@@ -9,7 +9,7 @@ terraform {
         source  = "hashicorp/google"
         version = ">= 5.0.0"
         }
-        postgresl = {
+        postgresql = {
         source  = "cyrilgdn/postgresql"
         version = ">= 1.22"
         }
@@ -23,7 +23,7 @@ provider "google" {
 }
 
 provider "postgresql" {
-    schema   = "gcppostgres"
+    scheme   = "gcppostgres"
     host     = "${var.project_id}:${var.region}:${google_sql_database_instance.fictional_lab_instance.name}"
     username = "fictional_lab_user"
     password = var.db_password

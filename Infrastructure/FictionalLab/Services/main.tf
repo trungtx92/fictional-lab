@@ -104,44 +104,44 @@ resource "google_sql_user" "fictional_lab_sa_user" {
 
 # See objects in the public schema
 resource "postgresql_grant" "sa_schema_usage" {
-  database = locals.database
-  role     = locals.sa_role
+  database = local.database
+  role     = local.sa_role
   schema   = "public"
-  object_type = "SCHEMA"
+  object_type = "schema"
   privileges = ["USAGE"]
 }
 
 # READ/WRITE on all existing tables
 resource "postgresql_grant" "sa_tables_rw" {
-  database = locals.database
-  role     = locals.sa_role
+  database = local.database
+  role     = local.sa_role
   schema   = "public"
-  object_type = "TABLE"
+  object_type = "table"
   privileges = ["SELECT", "INSERT", "UPDATE", "DELETE"]
 }
 # Needed for INSERT into tables with serial / identity IDs
 resource "postgresql_grant" "sq_sequences" {
-  database = locals.database
-  role     = locals.sa_role
+  database = local.database
+  role     = local.sa_role
   schema   = "public"
-  object_type = "SEQUENCE"
+  object_type = "sequence"
   privileges = ["USAGE", "SELECT"]
 }
 # Same rights on tables fictional_lab_user creates in the future
 resource "postgresql_default_privileges" "sa_future_tables" {
-  database = locals.database
-  role     = locals.sa_role
-  owner    = locals.owner
+  database = local.database
+  role     = local.sa_role
+  owner    = local.owner
   schema   = "public"
-  object_type = "TABLE"
+  object_type = "table"
   privileges = ["SELECT", "INSERT", "UPDATE", "DELETE"]
 }
 
 resource "postgresql_default_privileges" "sa_future_sequences" {
-  database = locals.database
-  role     = locals.sa_role
-  owner    = locals.owner
+  database = local.database
+  role     = local.sa_role
+  owner    = local.owner
   schema   = "public"
-  object_type = "SEQUENCE"
+  object_type = "sequence"
   privileges = ["USAGE", "SELECT"]
 }
