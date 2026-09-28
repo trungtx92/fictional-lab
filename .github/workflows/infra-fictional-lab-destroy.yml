@@ -1,4 +1,4 @@
-name: Infrastructure Fictional Lab Services Destroy
+name: Infrastructure Fictional Lab Destroy
 on:
   workflow_dispatch:
     inputs:

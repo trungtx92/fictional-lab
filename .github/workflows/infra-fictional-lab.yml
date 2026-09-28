@@ -1,4 +1,4 @@
-name: Infrastructure for Fictional Lab
+name: Infrastructure Fictional Lab
 on:
   workflow_dispatch:
 defaults:
