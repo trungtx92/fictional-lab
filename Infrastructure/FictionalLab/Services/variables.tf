@@ -13,7 +13,7 @@ variable "zone" {
   type        = string
 }
 
-variable "pg_db_password" {
+variable "db_password" {
   description = "Password for the fictional_lab_user database user"
   type        = string
   sensitive   = true
