@@ -1,7 +1,7 @@
 terraform {
   required_version = ">= 1.10"
   backend "gcs" {
-    bucket = "fictional-lab-terraform-state"
+    bucket = "fictional-lab-dev-tfstate"
     prefix = "fictional-lab/managed-airflow"
   }
   required_providers {
