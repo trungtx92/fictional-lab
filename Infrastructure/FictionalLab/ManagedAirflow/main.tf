@@ -3,8 +3,6 @@ resource "google_composer_environment" "fictional_lab_airflow" {
   region = var.region
 
   config {
-    node_count = 3
-
     software_config {
       image_version = "composer-3-airflow-2"
     }
