@@ -1,6 +1,5 @@
 
 from google.cloud import bigquery
-import schema as schema
 
 def load_csv_to_bigquery(uri, table_id, table_schema, client, write_disposition=bigquery.WriteDisposition.WRITE_APPEND):
     job_config = bigquery.LoadJobConfig(

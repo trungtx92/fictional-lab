@@ -1,0 +1,31 @@
+name: Pipeline Fictional Lab Extraction Pipeline
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy Extraction Pipeline
+    runs-on: ubuntu-latest
+    environment: development
+    env:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      GCP_REGION: ${{ secrets.GCP_REGION }}
+    steps:
+      - name: Check Code
+        uses: actions/checkout@v4
+      
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GH_GCP_SA_KEY }}
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Deploy to Cloud Run Job
+        run: |
+          gcloud run jobs deploy fictional-lab-extraction-pipeline \
+            --source ./Pipeline/FictionalLab/DataExtraction \
+            --region ${{ secrets.GCP_REGION }} \
+            --project ${{ secrets.GCP_PROJECT_ID }} \
+            --service-account "fictional-lab-service-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
+            --max-retries 0 \

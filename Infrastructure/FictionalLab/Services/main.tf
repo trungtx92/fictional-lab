@@ -44,6 +44,12 @@ resource "google_bigquery_dataset_access" "fictional_lab_access" {
   user_by_email = google_service_account.fictional_lab_service_account.email
 }
 
+resource "google_project_iam_member" "fictional_lab_bigquery_job_user" {
+  project = var.project_id
+  role = "roles/bigquery.jobUser"
+  member = "serviceAccount:${google_service_account.fictional_lab_service_account.email}"
+}
+
 ################################################################################
 # Create a PostgreSQL database and user, and grant access to the service account
 ################################################################################
