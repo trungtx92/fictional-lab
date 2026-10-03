@@ -14,6 +14,21 @@ resource "google_service_account" "fictional_lab_service_account" {
 }
 
 ################################################################################
+# Create a GCS bucket grant access to the service account
+################################################################################
+
+resource "google_storage_bucket" "fictional_lab_source_bucket" {
+  name     = "fictional-lab-source-bucket"
+  location = var.region
+}
+
+resource "google_storage_bucket_iam_member" "fictional_lab_source_bucket_access" {
+  bucket = google_storage_bucket.fictional_lab_source_bucket.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.fictional_lab_service_account.email}"
+}
+
+################################################################################
 # Create a BigQuery dataset and grant access to the service account
 ################################################################################
 
