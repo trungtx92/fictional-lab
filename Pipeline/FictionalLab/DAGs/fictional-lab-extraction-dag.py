@@ -20,21 +20,21 @@ dag = DAG(
 )
 
 extraction_pipeline = CloudRunExecuteJobOperator(
-    task_id='run_extraction_pipeline',
+    task_id='extraction_pipeline',
     project_id=os.environ['GCP_PROJECT'],
-    n=os.environ['COMPOSER_LOCATION'],
+    region=os.environ['COMPOSER_LOCATION'],
     job_name='fictional-lab-extraction-pipeline',
     dag=dag
 )
 
 transformation_pipeline = BashOperator(
-    task_id='bash_task',
+    task_id='transformation_pipeline',
     bash_command='echo "running transformation pipeline!"',
     dag=dag
 )
 
 load_pipeline = BashOperator(
-    task_id='bash_task',
+    task_id='load_pipeline',
     bash_command='echo "running load pipeline!"',
     dag=dag
 )
