@@ -51,5 +51,4 @@ jobs:
           gcloud run jobs execute fictional-lab-extraction-pipeline \
             --region ${{ secrets.GCP_REGION }} \
             --project ${{ secrets.GCP_PROJECT_ID }} \
-            --service-account "fictional-lab-service-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
             --wait
