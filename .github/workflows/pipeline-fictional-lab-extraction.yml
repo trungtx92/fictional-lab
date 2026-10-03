@@ -30,6 +30,7 @@ jobs:
             --service-account "fictional-lab-service-account@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
             --max-retries 0 \
   run:
+    needs: deploy
     name: Run Extraction Pipeline
     runs-on: ubuntu-latest
     environment: development
