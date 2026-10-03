@@ -166,3 +166,19 @@ resource "postgresql_default_privileges" "sa_future_sequences" {
   object_type = "sequence"
   privileges = ["USAGE", "SELECT"]
 }
+
+################################################################################
+# Grant the service account access to Trigger Cloud Run
+################################################################################
+# Grant Cloud Run Invoker role
+resource "google_project_iam_member" "fictional_lab_run_invoker" {
+  project = var.project_id
+  role = "roles/run.invoker"
+  member = "serviceAccount:${google_service_account.fictional_lab_service_account.email}"
+}
+# Grant Cloud Run Viewer Role
+resource "google_project_iam_member" "fictional_lab_run_viewer" {
+  project = var.project_id
+  role = "roles/run.viewer"
+  member = "serviceAccount:${google_service_account.fictional_lab_service_account.email}"
+}
