@@ -32,7 +32,7 @@ raw_transactions_schema = [
     bigquery.SchemaField("TRANSACTION_ID", "INTEGER"),
     bigquery.SchemaField("CUSTOMER_ID", "INTEGER"),
     bigquery.SchemaField("STORE_ID", "INTEGER"),
-    bigquery.SchemaField("TRANSACTION_DATE", "DATETIME"),
+    bigquery.SchemaField("TRANSACTION_DATE", "TIMESTAMP"),
     bigquery.SchemaField("PAYMENT_METHOD", "STRING"),
     bigquery.SchemaField("STATUS", "STRING"),
     bigquery.SchemaField("TOTAL_AMOUNT", "FLOAT"),
