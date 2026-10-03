@@ -7,7 +7,7 @@ raw_customers_schema=[
     bigquery.SchemaField("EMAIL", "STRING"),
     bigquery.SchemaField("PHONE", "STRING"),
     bigquery.SchemaField("ADDRESS", "STRING"),
-    bigquery.SchemaField("CREATED_AT", "DATETIME"),
+    bigquery.SchemaField("CREATED_AT", "TIMESTAMP"),
 ]
 
 raw_stores_schema = [
@@ -25,7 +25,7 @@ raw_products_schema = [
     bigquery.SchemaField("CATEGORY", "STRING"),
     bigquery.SchemaField("UNIT_PRICE", "FLOAT"),
     bigquery.SchemaField("IS_ACTIVE", "BOOLEAN"),
-    bigquery.SchemaField("CREATED_AT", "DATETIME"),
+    bigquery.SchemaField("CREATED_AT", "TIMESTAMP"),
 ]
 
 raw_transactions_schema = [
@@ -36,7 +36,7 @@ raw_transactions_schema = [
     bigquery.SchemaField("PAYMENT_METHOD", "STRING"),
     bigquery.SchemaField("STATUS", "STRING"),
     bigquery.SchemaField("TOTAL_AMOUNT", "FLOAT"),
-    bigquery.SchemaField("CREATED_AT", "DATETIME"),
+    bigquery.SchemaField("CREATED_AT", "TIMESTAMP"),
 ]
 
 raw_transaction_items_schema = [
