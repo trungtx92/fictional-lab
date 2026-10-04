@@ -1,0 +1,14 @@
+name: Pipeline Fictional Lab Load Pipeline
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy Load Pipeline
+    runs-on: ubuntu-latest
+    environment: development
+    env:
+      GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      GCP_REGION: ${{ secrets.GCP_REGION }}
+    steps:
+      - name: Check Code
+        uses: actions/checkout@v4
