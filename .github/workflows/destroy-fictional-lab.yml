@@ -1,4 +1,4 @@
-name: Infrastructure Fictional Lab Managed Airflow Destroy
+name: Destroy Infrastructure Fictional Lab
 on:
   workflow_dispatch:
     inputs:
@@ -8,7 +8,7 @@ on:
         type: string
 defaults:
   run:
-    working-directory: Infrastructure/FictionalLab/ManagedAirflow
+    working-directory: Infrastructure/FictionalLab/Services
 jobs:
   plan-destroy:
     name: Terraform Plan Destroy
@@ -19,6 +19,7 @@ jobs:
       TF_VAR_project_id: ${{ secrets.GCP_PROJECT_ID }}
       TF_VAR_region: ${{ secrets.GCP_REGION }}
       TF_VAR_zone: ${{ secrets.GCP_ZONE }}
+      TF_VAR_db_password: ${{ secrets.DB_PASSWORD }}
     steps:
       - name: Check Code
         uses: actions/checkout@v4
@@ -41,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tfplan-destroy
-          path: Infrastructure/FictionalLab/ManagedAirflow/tfplan-destroy
+          path: Infrastructure/FictionalLab/Services/tfplan-destroy
           retention-days: 1
   destroy:
     name: Terraform Destroy
@@ -64,7 +65,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: tfplan-destroy
-          path: Infrastructure/FictionalLab/ManagedAirflow
+          path: Infrastructure/FictionalLab/Services
 
       - name: Terraform Init
         run: terraform init -input=false
