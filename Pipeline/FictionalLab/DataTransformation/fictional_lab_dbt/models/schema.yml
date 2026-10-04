@@ -1,0 +1,23 @@
+
+version: 2
+
+sources:
+  - name: fictional_lab_dataset
+    tables:
+      - name: raw_customers
+        description: "Customer data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
+
+      - name: raw_orders
+        description: "Order data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
