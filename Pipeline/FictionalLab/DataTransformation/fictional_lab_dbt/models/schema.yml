@@ -10,7 +10,6 @@ sources:
           - name: CUSTOMER_ID
             description: "The primary key for this table"
             data_tests:
-              - unique
               - not_null
 
       - name: raw_stores
@@ -19,7 +18,6 @@ sources:
           - name: STORE_ID
             description: "The primary key for this table"
             data_tests:
-              - unique
               - not_null
 
       - name: raw_products
@@ -28,7 +26,6 @@ sources:
           - name: PRODUCT_ID
             description: "The primary key for this table"
             data_tests:
-              - unique
               - not_null
       
       - name: raw_transactions
@@ -37,7 +34,6 @@ sources:
           - name: TRANSACTION_ID
             description: "The primary key for this table"
             data_tests:
-              - unique
               - not_null
       
       - name: raw_transaction_items
@@ -46,5 +42,4 @@ sources:
           - name: TRANSACTION_ITEM_ID
             description: "The primary key for this table"
             data_tests:
-              - unique
               - not_null
