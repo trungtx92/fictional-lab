@@ -1,0 +1,50 @@
+
+version: 2
+
+sources:
+  - name: fictional_lab_dataset
+    tables:
+      - name: raw_customers
+        description: "Customer data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
+
+      - name: raw_stores
+        description: "Store data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
+
+      - name: raw_products
+        description: "Product data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
+      
+      - name: raw_transactions
+        description: "Transaction data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null
+      
+      - name: raw_transaction_items
+        description: "Transaction item data model"
+        columns:
+          - name: id
+            description: "The primary key for this table"
+            data_tests:
+              - unique
+              - not_null

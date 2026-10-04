@@ -29,7 +29,9 @@ extraction_pipeline = CloudRunExecuteJobOperator(
 
 transformation_pipeline = BashOperator(
     task_id='transformation_pipeline',
-    bash_command='echo "running transformation pipeline!"',
+    project_id=os.environ['GCP_PROJECT'],
+    region=os.environ['COMPOSER_LOCATION'],
+    job_name='fictional-lab-transformation-pipeline',
     dag=dag
 )
 
