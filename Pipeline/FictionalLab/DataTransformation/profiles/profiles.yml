@@ -5,7 +5,7 @@ fictional_lab_dbt:
       dataset: fictional_lab_dataset
       job_execution_timeout_seconds: 600
       job_retries: 1
-      location: US
+      location: us-central1
       method: oauth
       priority: interactive
       project: fictional-lab-dev
