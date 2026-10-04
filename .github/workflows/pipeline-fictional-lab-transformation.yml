@@ -23,7 +23,7 @@ jobs:
 
       - name: Deploy to Cloud Run Job
         run: |
-          gcloud run job deploy fictional-lab-transformation-pipeline \
+          gcloud run jobs deploy fictional-lab-transformation-pipeline \
             --source Pipeline/FictionalLab/DataTransformation \
             --region ${{ secrets.GCP_REGION }} \
             --project ${{ secrets.GCP_PROJECT_ID }} \
