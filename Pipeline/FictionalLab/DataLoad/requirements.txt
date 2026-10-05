@@ -1,0 +1,2 @@
+google-cloud-bigquery
+cloud-sql-python-connector[pg8000]
