@@ -35,9 +35,11 @@ transformation_pipeline = CloudRunExecuteJobOperator(
     dag=dag
 )
 
-load_pipeline = BashOperator(
+load_pipeline = CloudRunExecuteJobOperator(
     task_id='load_pipeline',
-    bash_command='echo "running load pipeline!"',
+    project_id=os.environ['GCP_PROJECT'],
+    region=os.environ['COMPOSER_LOCATION'],
+    job_name='fictional-lab-load-pipeline',
     dag=dag
 )
 
