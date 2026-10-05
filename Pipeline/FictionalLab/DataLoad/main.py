@@ -10,12 +10,6 @@ db_password = os.environ.get("DB_PASSWORD")
 db_database = os.environ.get("DB_NAME")
 db_schema = os.environ.get("DB_SCHEMA")
 
-# instance_connection_name = "fictional-lab-dev:us-central1:fictional-lab-instance"
-# db_user = "fictional_lab_user"
-# db_password = "Password@123"
-# db_name = "fictional_lab_database"
-# db_schema = "public"
-
 def main():
     client = bigquery.Client()
     connection = dp.connect_to_database(instance_connection_name, db_user, db_password, db_name)
