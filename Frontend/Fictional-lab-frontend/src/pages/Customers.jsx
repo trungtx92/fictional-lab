@@ -30,7 +30,8 @@ export function Customers() {
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
-              <th>Address</th>
+              <th>State</th>
+              <th>Postcode</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +44,8 @@ export function Customers() {
                 </td>
                 <td>{c.email}</td>
                 <td>{c.phone}</td>
-                <td>{c.address}</td>
+                <td>{c.state}</td>
+                <td>{c.postcode}</td>
               </tr>
             ))}
           </tbody>

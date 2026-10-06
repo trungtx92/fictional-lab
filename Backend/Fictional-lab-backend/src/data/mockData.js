@@ -2,16 +2,16 @@
 // Replace this module with real PostgreSQL queries when the database is wired up.
 
 export const customers = [
-  { customer_id: 1, first_name: "Alice", last_name: "Nguyen", email: "alice.nguyen@example.com", phone: "+1-202-555-0101", address: "12 Maple St, Springfield", created_at: "2024-01-15T08:30:00Z" },
-  { customer_id: 2, first_name: "Brian", last_name: "Tran", email: "brian.tran@example.com", phone: "+1-202-555-0102", address: "88 Oak Ave, Springfield", created_at: "2024-01-20T09:10:00Z" },
-  { customer_id: 3, first_name: "Carla", last_name: "Ramirez", email: "carla.ramirez@example.com", phone: "+1-202-555-0103", address: "5 Birch Rd, Riverton", created_at: "2024-02-02T14:00:00Z" },
-  { customer_id: 4, first_name: "David", last_name: "Kim", email: "david.kim@example.com", phone: "+1-202-555-0104", address: "271 Cedar Blvd, Riverton", created_at: "2024-02-11T11:45:00Z" },
-  { customer_id: 5, first_name: "Elena", last_name: "Petrova", email: "elena.petrova@example.com", phone: "+1-202-555-0105", address: "9 Elm Ct, Lakeside", created_at: "2024-03-01T16:20:00Z" },
-  { customer_id: 6, first_name: "Farid", last_name: "Haidari", email: "farid.haidari@example.com", phone: "+1-202-555-0106", address: "40 Pine Way, Lakeside", created_at: "2024-03-18T10:05:00Z" },
-  { customer_id: 7, first_name: "Grace", last_name: "Okafor", email: "grace.okafor@example.com", phone: "+1-202-555-0107", address: "163 Spruce Dr, Hilltown", created_at: "2024-04-09T13:15:00Z" },
-  { customer_id: 8, first_name: "Hiro", last_name: "Tanaka", email: "hiro.tanaka@example.com", phone: "+1-202-555-0108", address: "22 Aspen Pl, Hilltown", created_at: "2024-04-27T17:40:00Z" },
-  { customer_id: 9, first_name: "Trung", last_name: "Pham", email: "trung.pham@example.com", phone: "+1-202-555-0108", address: "8 Gratz St, Hilltown", created_at: "2024-04-27T17:40:00Z" },
-  { customer_id: 10, first_name: "Hanhna", last_name: "Nguyen", email: "hanhna.pham@example.com", phone: "+1-202-555-0108", address: "8 Gratz St, Hilltown", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 1, first_name: "Alice", last_name: "Nguyen", email: "alice.nguyen@example.com", phone: "+1-202-555-0101", country: "AU", state: "NSW", postcode: "2000", created_at: "2024-01-15T08:30:00Z" },
+  { customer_id: 2, first_name: "Brian", last_name: "Tran", email: "brian.tran@example.com", phone: "+1-202-555-0102", country: "AU", state: "NSW", postcode: "2150", created_at: "2024-01-20T09:10:00Z" },
+  { customer_id: 3, first_name: "Carla", last_name: "Ramirez", email: "carla.ramirez@example.com", phone: "+1-202-555-0103", country: "AU", state: "VIC", postcode: "3000", created_at: "2024-02-02T14:00:00Z" },
+  { customer_id: 4, first_name: "David", last_name: "Kim", email: "david.kim@example.com", phone: "+1-202-555-0104", country: "AU", state: "VIC", postcode: "3121", created_at: "2024-02-11T11:45:00Z" },
+  { customer_id: 5, first_name: "Elena", last_name: "Petrova", email: "elena.petrova@example.com", phone: "+1-202-555-0105", country: "AU", state: "QLD", postcode: "4000", created_at: "2024-03-01T16:20:00Z" },
+  { customer_id: 6, first_name: "Farid", last_name: "Haidari", email: "farid.haidari@example.com", phone: "+1-202-555-0106", country: "AU", state: "QLD", postcode: "4217", created_at: "2024-03-18T10:05:00Z" },
+  { customer_id: 7, first_name: "Grace", last_name: "Okafor", email: "grace.okafor@example.com", phone: "+1-202-555-0107", country: "AU", state: "WA", postcode: "6000", created_at: "2024-04-09T13:15:00Z" },
+  { customer_id: 8, first_name: "Hiro", last_name: "Tanaka", email: "hiro.tanaka@example.com", phone: "+1-202-555-0108", country: "AU", state: "SA", postcode: "5000", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 9, first_name: "Trung", last_name: "Pham", email: "trung.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "TAS", postcode: "7000", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 10, first_name: "Hanhna", last_name: "Nguyen", email: "hanhna.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "NT", postcode: "0800", created_at: "2024-04-27T17:40:00Z" },
 ];
 
 export const stores = [

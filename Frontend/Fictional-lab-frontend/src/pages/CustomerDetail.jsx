@@ -27,8 +27,12 @@ export function CustomerDetail() {
         <dd>{customer.email}</dd>
         <dt>Phone</dt>
         <dd>{customer.phone}</dd>
-        <dt>Address</dt>
-        <dd>{customer.address}</dd>
+        <dt>Country</dt>
+        <dd>{customer.country}</dd>
+        <dt>State</dt>
+        <dd>{customer.state}</dd>
+        <dt>Postcode</dt>
+        <dd>{customer.postcode}</dd>
         <dt>Customer Since</dt>
         <dd>{formatDate(customer.created_at)}</dd>
       </dl>

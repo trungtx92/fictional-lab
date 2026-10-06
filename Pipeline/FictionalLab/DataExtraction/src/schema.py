@@ -6,7 +6,9 @@ raw_customers_schema=[
     bigquery.SchemaField("LAST_NAME", "STRING"),
     bigquery.SchemaField("EMAIL", "STRING"),
     bigquery.SchemaField("PHONE", "STRING"),
-    bigquery.SchemaField("ADDRESS", "STRING"),
+    bigquery.SchemaField("COUNTRY", "STRING"),
+    bigquery.SchemaField("STATE", "STRING"),
+    bigquery.SchemaField("POSTCODE", "STRING"),
     bigquery.SchemaField("CREATED_AT", "TIMESTAMP"),
 ]
 
