@@ -2,23 +2,23 @@
 // Replace this module with real PostgreSQL queries when the database is wired up.
 
 export const customers = [
-  { customer_id: 1, first_name: "Alice", last_name: "Nguyen", email: "alice.nguyen@example.com", phone: "+1-202-555-0101", country: "AU", state: "NSW", postcode: "2000", created_at: "2024-01-15T08:30:00Z" },
-  { customer_id: 2, first_name: "Brian", last_name: "Tran", email: "brian.tran@example.com", phone: "+1-202-555-0102", country: "AU", state: "NSW", postcode: "2150", created_at: "2024-01-20T09:10:00Z" },
-  { customer_id: 3, first_name: "Carla", last_name: "Ramirez", email: "carla.ramirez@example.com", phone: "+1-202-555-0103", country: "AU", state: "VIC", postcode: "3000", created_at: "2024-02-02T14:00:00Z" },
-  { customer_id: 4, first_name: "David", last_name: "Kim", email: "david.kim@example.com", phone: "+1-202-555-0104", country: "AU", state: "VIC", postcode: "3121", created_at: "2024-02-11T11:45:00Z" },
-  { customer_id: 5, first_name: "Elena", last_name: "Petrova", email: "elena.petrova@example.com", phone: "+1-202-555-0105", country: "AU", state: "QLD", postcode: "4000", created_at: "2024-03-01T16:20:00Z" },
-  { customer_id: 6, first_name: "Farid", last_name: "Haidari", email: "farid.haidari@example.com", phone: "+1-202-555-0106", country: "AU", state: "QLD", postcode: "4217", created_at: "2024-03-18T10:05:00Z" },
-  { customer_id: 7, first_name: "Grace", last_name: "Okafor", email: "grace.okafor@example.com", phone: "+1-202-555-0107", country: "AU", state: "WA", postcode: "6000", created_at: "2024-04-09T13:15:00Z" },
-  { customer_id: 8, first_name: "Hiro", last_name: "Tanaka", email: "hiro.tanaka@example.com", phone: "+1-202-555-0108", country: "AU", state: "SA", postcode: "5000", created_at: "2024-04-27T17:40:00Z" },
-  { customer_id: 9, first_name: "Trung", last_name: "Pham", email: "trung.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "TAS", postcode: "7000", created_at: "2024-04-27T17:40:00Z" },
-  { customer_id: 10, first_name: "Hanhna", last_name: "Nguyen", email: "hanhna.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "NT", postcode: "0800", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 1, first_name: "Alice", last_name: "Nguyen", gender: "female", date_of_birth: "1980-10-27", email: "alice.nguyen@example.com", phone: "+1-202-555-0101", country: "AU", state: "WA", postcode: "6008", created_at: "2024-01-15T08:30:00Z" },
+  { customer_id: 2, first_name: "Brian", last_name: "Tran", gender: "male", date_of_birth: "1987-08-04", email: "brian.tran@example.com", phone: "+1-202-555-0102", country: "AU", state: "QLD", postcode: "4870", created_at: "2024-01-20T09:10:00Z" },
+  { customer_id: 3, first_name: "Carla", last_name: "Ramirez", gender: "female", date_of_birth: "2000-02-05", email: "carla.ramirez@example.com", phone: "+1-202-555-0103", country: "AU", state: "VIC", postcode: "3000", created_at: "2024-02-02T14:00:00Z" },
+  { customer_id: 4, first_name: "David", last_name: "Kim", gender: "male", date_of_birth: "1964-09-15", email: "david.kim@example.com", phone: "+1-202-555-0104", country: "AU", state: "NSW", postcode: "2031", created_at: "2024-02-11T11:45:00Z" },
+  { customer_id: 5, first_name: "Elena", last_name: "Petrova", gender: "female", date_of_birth: "2004-03-05", email: "elena.petrova@example.com", phone: "+1-202-555-0105", country: "AU", state: "VIC", postcode: "3141", created_at: "2024-03-01T16:20:00Z" },
+  { customer_id: 6, first_name: "Farid", last_name: "Haidari", gender: "male", date_of_birth: "1968-11-26", email: "farid.haidari@example.com", phone: "+1-202-555-0106", country: "AU", state: "NSW", postcode: "2031", created_at: "2024-03-18T10:05:00Z" },
+  { customer_id: 7, first_name: "Grace", last_name: "Okafor", gender: "female", date_of_birth: "1984-12-27", email: "grace.okafor@example.com", phone: "+1-202-555-0107", country: "AU", state: "VIC", postcode: "3550", created_at: "2024-04-09T13:15:00Z" },
+  { customer_id: 8, first_name: "Hiro", last_name: "Tanaka", gender: "male", date_of_birth: "1963-12-17", email: "hiro.tanaka@example.com", phone: "+1-202-555-0108", country: "AU", state: "WA", postcode: "6027", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 9, first_name: "Trung", last_name: "Pham", gender: "male", date_of_birth: "1968-12-24", email: "trung.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "NSW", postcode: "2010", created_at: "2024-04-27T17:40:00Z" },
+  { customer_id: 10, first_name: "Hanhna", last_name: "Nguyen", gender: "female", date_of_birth: "1989-03-16", email: "hanhna.pham@example.com", phone: "+1-202-555-0108", country: "AU", state: "QLD", postcode: "4870", created_at: "2024-04-27T17:40:00Z" },
 ];
 
 export const stores = [
-  { store_id: 1, store_name: "Downtown Springfield", region: "North", address: "100 Main St, Springfield", manager_name: "Monica Lee" },
-  { store_id: 2, store_name: "Riverton Plaza", region: "North", address: "45 River Rd, Riverton", manager_name: "Owen Scott" },
-  { store_id: 3, store_name: "Lakeside Outlet", region: "South", address: "8 Harbor Ave, Lakeside", manager_name: "Priya Shah" },
-  { store_id: 4, store_name: "Hilltown Market", region: "South", address: "300 Summit Dr, Hilltown", manager_name: "Quentin Ross" },
+  { store_id: 1, store_name: "Downtown Springfield", region: "North", country: "AU", state: "QLD", postcode: "4300", manager_name: "Monica Lee" },
+  { store_id: 2, store_name: "Riverton Plaza", region: "North", country: "AU", state: "WA", postcode: "6148", manager_name: "Owen Scott" },
+  { store_id: 3, store_name: "Lakeside Outlet", region: "South", country: "AU", state: "VIC", postcode: "3350", manager_name: "Priya Shah" },
+  { store_id: 4, store_name: "Hilltown Market", region: "South", country: "AU", state: "SA", postcode: "5290", manager_name: "Quentin Ross" },
 ];
 
 export const products = [

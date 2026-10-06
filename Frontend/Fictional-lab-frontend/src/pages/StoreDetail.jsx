@@ -24,8 +24,12 @@ export function StoreDetail() {
       <dl className="detail-list">
         <dt>Region</dt>
         <dd>{store.region}</dd>
-        <dt>Address</dt>
-        <dd>{store.address}</dd>
+        <dt>Country</dt>
+        <dd>{store.country}</dd>
+        <dt>State</dt>
+        <dd>{store.state}</dd>
+        <dt>Postcode</dt>
+        <dd>{store.postcode}</dd>
         <dt>Manager</dt>
         <dd>{store.manager_name}</dd>
       </dl>

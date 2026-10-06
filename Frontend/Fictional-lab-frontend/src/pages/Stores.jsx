@@ -17,7 +17,8 @@ export function Stores() {
           <tr>
             <th>Store</th>
             <th>Region</th>
-            <th>Address</th>
+            <th>State</th>
+            <th>Postcode</th>
             <th>Manager</th>
           </tr>
         </thead>
@@ -28,7 +29,8 @@ export function Stores() {
                 <Link to={`/stores/${s.store_id}`}>{s.store_name}</Link>
               </td>
               <td>{s.region}</td>
-              <td>{s.address}</td>
+              <td>{s.state}</td>
+              <td>{s.postcode}</td>
               <td>{s.manager_name}</td>
             </tr>
           ))}

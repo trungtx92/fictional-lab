@@ -21,3 +21,15 @@ export function formatDate(iso) {
     minute: "2-digit",
   });
 }
+
+// For DATE-only values such as date_of_birth ("YYYY-MM-DD"): no time part, and
+// rendered in UTC so the day does not shift with the viewer's timezone.
+export function formatDateOnly(iso) {
+  if (!iso) return "";
+  return new Date(iso).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    timeZone: "UTC",
+  });
+}

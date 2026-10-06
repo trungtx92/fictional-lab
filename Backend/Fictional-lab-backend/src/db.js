@@ -5,6 +5,10 @@ import { Connector } from "@google-cloud/cloud-sql-connector";
 // strings by default. The API returned numbers under the mock data, so parse them.
 pg.types.setTypeParser(pg.types.builtins.NUMERIC, parseFloat);
 
+// DATE columns (date_of_birth) are parsed by pg into a Date at local midnight,
+// which can shift by a day once serialized to JSON. Keep the YYYY-MM-DD string.
+pg.types.setTypeParser(pg.types.builtins.DATE, (value) => value);
+
 const config = {
   user: process.env.DB_USER || "fictional_lab_user",
   password: process.env.DB_PASSWORD,

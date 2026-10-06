@@ -4,6 +4,8 @@ raw_customers_schema=[
     bigquery.SchemaField("CUSTOMER_ID", "INTEGER"),
     bigquery.SchemaField("FIRST_NAME", "STRING"),
     bigquery.SchemaField("LAST_NAME", "STRING"),
+    bigquery.SchemaField("GENDER", "STRING"),
+    bigquery.SchemaField("DATE_OF_BIRTH", "DATE"),
     bigquery.SchemaField("EMAIL", "STRING"),
     bigquery.SchemaField("PHONE", "STRING"),
     bigquery.SchemaField("COUNTRY", "STRING"),
@@ -16,7 +18,9 @@ raw_stores_schema = [
     bigquery.SchemaField("STORE_ID", "INTEGER"),
     bigquery.SchemaField("STORE_NAME", "STRING"),
     bigquery.SchemaField("REGION", "STRING"),
-    bigquery.SchemaField("ADDRESS", "STRING"),
+    bigquery.SchemaField("COUNTRY", "STRING"),
+    bigquery.SchemaField("STATE", "STRING"),
+    bigquery.SchemaField("POSTCODE", "STRING"),
     bigquery.SchemaField("MANAGER_NAME", "STRING"),
 ]
 

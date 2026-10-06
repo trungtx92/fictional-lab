@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { api } from "../api/client.js";
 import { useFetch } from "../api/useFetch.js";
 import { Loading, ErrorBanner, EmptyState } from "../components/StatusBanner.jsx";
-import { StatusPill, formatCurrency, formatDate } from "../components/StatusPill.jsx";
+import { StatusPill, formatCurrency, formatDate, formatDateOnly } from "../components/StatusPill.jsx";
 
 export function CustomerDetail() {
   const { id } = useParams();
@@ -23,6 +23,10 @@ export function CustomerDetail() {
       </h1>
 
       <dl className="detail-list">
+        <dt>Gender</dt>
+        <dd>{customer.gender}</dd>
+        <dt>Date of Birth</dt>
+        <dd>{formatDateOnly(customer.date_of_birth)}</dd>
         <dt>Email</dt>
         <dd>{customer.email}</dd>
         <dt>Phone</dt>
