@@ -1,6 +1,6 @@
 import { CATEGORIES, useFilters } from "../filters.js";
 
-export function CategoryFilter({ hint }) {
+export function CategoryFilter() {
   const { category, setCategory } = useFilters();
   return (
     <div className="filter-row">
@@ -18,7 +18,6 @@ export function CategoryFilter({ hint }) {
           </option>
         ))}
       </select>
-      {hint && <span className="filter-row__hint">{hint}</span>}
     </div>
   );
 }

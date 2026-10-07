@@ -67,7 +67,6 @@ export function StateDetails() {
                   </Link>
                 ))}
               </nav>
-              <p className="details__hint">click another state to switch</p>
               <dl className="stats">
                 <div>
                   <dt>Customers</dt>
@@ -93,10 +92,10 @@ export function StateDetails() {
             <div className="details__main">
               <CategoryFilter />
               <div className="widgets widgets--two">
-                <Widget title="New vs returning" kind="pie">
+                <Widget title="New vs returning">
                   <PieChart data={current.newVsReturning} ariaLabel="New versus returning customers" />
                 </Widget>
-                <Widget title="Customers vs txns" kind="double line, start = 100">
+                <Widget title="Customers vs txns, start = 100">
                   <LineChart
                     labels={current.customersVsTxns.labels}
                     series={[
@@ -106,10 +105,10 @@ export function StateDetails() {
                     ariaLabel="Customers and transactions, indexed to 100 at the start of the period"
                   />
                 </Widget>
-                <Widget title="Customers by store" kind="bar">
+                <Widget title="Customers by store">
                   <BarChart data={current.customersByStore} ariaLabel="Customers by store" />
                 </Widget>
-                <Widget title="Transactions over time" kind="line">
+                <Widget title="Transactions over time">
                   <LineChart
                     labels={current.txnsOverTime.labels}
                     series={[{ name: "Transactions", values: current.txnsOverTime.values }]}

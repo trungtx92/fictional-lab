@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../api/client.js";
 import { useFetch } from "../api/useFetch.js";
 import { CategoryFilter } from "../components/CategoryFilter.jsx";
+import { KpiIcon } from "../components/KpiIcon.jsx";
 import { AustraliaMap, STATE_COLORS } from "../components/AustraliaMap.jsx";
 import { TopBar } from "../components/TopBar.jsx";
 import { Widget } from "../components/Widget.jsx";
@@ -25,7 +26,7 @@ export function Overview() {
 
   const hoveredState = data?.states.find((s) => s.code === hovered);
   const panel = hoveredState
-    ? { title: `Hover: ${hoveredState.code}`, ...hoveredState }
+    ? { title: `State: ${hoveredState.code}`, ...hoveredState }
     : data && {
         title: "All states",
         revenue: data.states.reduce((acc, s) => acc + s.revenue, 0),
@@ -37,7 +38,7 @@ export function Overview() {
     <div className="page">
       <TopBar />
       <main className={`page__body ${loading ? "is-loading" : ""}`}>
-        <CategoryFilter hint="filters map + all widgets" />
+        <CategoryFilter />
 
         {error && <p className="form-error">{error}</p>}
         {!data && !error && <p className="page-message">Loading…</p>}
@@ -47,8 +48,11 @@ export function Overview() {
             <div className="kpis">
               {KPIS.map(([key, label]) => (
                 <div className="kpi" key={key}>
-                  <span className="kpi__label">{label}</span>
-                  <span className="kpi__value">{formatNumber(data.kpis[key])}</span>
+                  <KpiIcon name={key} />
+                  <div className="kpi__text">
+                    <span className="kpi__label">{label}</span>
+                    <span className="kpi__value">{formatNumber(data.kpis[key])}</span>
+                  </div>
                 </div>
               ))}
             </div>
@@ -67,23 +71,22 @@ export function Overview() {
                 <p>Revenue {formatRevenue(panel.revenue)}</p>
                 <p>Customers {formatNumber(panel.customers)}</p>
                 <p>Txns {formatNumber(panel.txns)}</p>
-                <span className="map-card__hint">click → state details</span>
               </div>
             </section>
 
             <div className="widgets widgets--three">
-              <Widget title="Txns over time" kind="line">
+              <Widget title="Txns over time">
                 <LineChart
                   labels={data.txnsOverTime.labels}
                   series={[{ name: "Transactions", values: data.txnsOverTime.values }]}
                   ariaLabel="Transactions over time"
                 />
               </Widget>
-              <Widget title="Top products" kind="bar">
+              <Widget title="Top products">
                 <BarChart data={data.topProducts} ariaLabel="Top products by units sold" />
               </Widget>
-              <Widget title="Gender distribution" kind="pie">
-                <PieChart data={data.genderDistribution} ariaLabel="Customers by gender: male and female" />
+              <Widget title="Gender distribution">
+                <PieChart donut data={data.genderDistribution} ariaLabel="Customers by gender: male and female" />
               </Widget>
             </div>
           </>

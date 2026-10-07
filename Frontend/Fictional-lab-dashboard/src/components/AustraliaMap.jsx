@@ -2,18 +2,18 @@ import { Link } from "react-router-dom";
 // State outlines by Victor Cazanave (@svg-maps/australia), licensed CC BY-SA 4.0.
 import australia from "@svg-maps/australia";
 
-// One colour per state. The assignment keeps every pair of bordering states
-// clearly apart, including for colour-blind viewers, so don't shuffle it
-// without re-checking neighbours.
+// One pastel per state. The assignment keeps look-alike tints (yellow/orange,
+// blue/lavender, and ACT's blue against NSW) off shared borders, so don't
+// shuffle it without re-checking neighbours.
 export const STATE_COLORS = {
-  WA: "#2a78d6",
-  NT: "#e87ba4",
-  SA: "#eda100",
-  QLD: "#008300",
-  NSW: "#4a3aa7",
-  VIC: "#e34948",
-  ACT: "#eb6834",
-  TAS: "#1baf7a",
+  WA: "#fff2cc",
+  NT: "#dae8fc",
+  SA: "#d5e8d4",
+  QLD: "#f8ceec",
+  NSW: "#ffe6cc",
+  VIC: "#e1d5e7",
+  ACT: "#dae8fc",
+  TAS: "#b1ddf0",
 };
 
 // Label anchor per state, in the map's viewBox units. ACT is too small to

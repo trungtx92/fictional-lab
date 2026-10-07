@@ -4,7 +4,9 @@
   --muted: #666;
   --rule: #d9d9d9;
   --surface: #fff;
-  --page: #f3f3f3;
+  --page: #e6e6e6;
+  --seam: #999;
+  --title: #2b6cb0;
   --blue-1: #dde4ee;
   --blue-2: #b3c5dc;
   --blue-3: #8ca7c5;
@@ -13,8 +15,10 @@
   --error: #a4262c;
   --border: 1.5px solid var(--ink);
   --widget-radius: 10px;
+  --widget-border: 1.5px solid #ccc;
   --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-din: "DIN", "DIN Alternate", "Bahnschrift", var(--font-body);
 }
 
 * {
@@ -57,14 +61,21 @@ p {
   border-radius: 0;
 }
 
+/* The native arrow is replaced by a thin chevron drawn as a background. */
 .select {
-  padding: 4px 8px;
+  padding: 4px 32px 4px 8px;
+  background: var(--surface)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none' stroke='%23666' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5'/%3E%3C/svg%3E")
+    no-repeat right 10px center;
+  border: var(--widget-border);
   font-weight: 500;
+  cursor: pointer;
+  appearance: none;
 }
 
 .select--wide {
   min-width: 220px;
-  padding: 6px 10px;
+  padding: 6px 32px 6px 10px;
 }
 
 .input {
@@ -205,7 +216,7 @@ p {
 .page {
   max-width: 1120px;
   margin: 24px auto;
-  background: var(--surface);
+  background: var(--page);
   border: 1px solid var(--rule);
 }
 
@@ -214,8 +225,11 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 24px;
-  border-bottom: var(--border);
+  margin: 20px 24px 0;
+  padding: 14px 22px;
+  background: var(--surface);
+  border: var(--widget-border);
+  border-radius: var(--widget-radius);
 }
 
 .topbar__title {
@@ -223,20 +237,27 @@ p {
   flex-wrap: wrap;
   align-items: baseline;
   column-gap: 10px;
-  color: var(--ink);
-  font-family: var(--font-display);
+  color: var(--title);
+  font-family: var(--font-din);
   font-size: clamp(18px, 2.6vw, 26px);
   font-weight: 700;
   text-transform: uppercase;
 }
 
 .topbar__title a {
-  color: var(--blue-5);
+  color: inherit;
   text-decoration: none;
 }
 
-.topbar__title a:hover {
-  text-decoration: underline;
+/* Both breadcrumb parts on the state page grow slightly on hover; only the link is clickable. */
+.topbar__title a,
+.topbar__title a ~ [aria-current] {
+  transition: transform 0.15s;
+}
+
+.topbar__title a:hover,
+.topbar__title a ~ [aria-current]:hover {
+  transform: scale(1.05);
 }
 
 .topbar__separator {
@@ -307,47 +328,65 @@ p {
   color: #555;
 }
 
-.filter-row__hint {
-  color: var(--blue-5);
-  font-size: 15px;
-}
-
 /* ---- overview --------------------------------------------------------- */
 
 .kpis {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .kpi {
   display: flex;
-  flex-direction: column;
-  padding: 12px 22px;
-  border: var(--border);
+  align-items: center;
+  gap: 14px;
+  padding: 12px 18px;
+  background: var(--surface);
+  border: var(--widget-border);
   border-radius: var(--widget-radius);
 }
 
+.kpi__icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  background: var(--blue-1);
+  border-radius: 50%;
+  color: var(--blue-5);
+}
+
+.kpi__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
 .kpi__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #555;
+  font-family: "Segoe UI", system-ui, sans-serif;
   font-size: 15px;
   letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 
 .kpi__value {
-  font-family: var(--font-display);
-  font-size: 32px;
-  font-weight: 700;
+  font-family: "Segoe UI Semibold", "Segoe UI", system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 600;
   line-height: 1.1;
 }
 
 .map-card {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
-  margin: 20px 0;
+  margin: 12px 0;
   padding: 20px;
-  border: var(--border);
+  background: var(--surface);
+  border: var(--widget-border);
   border-radius: var(--widget-radius);
 }
 
@@ -367,9 +406,9 @@ p {
   transition: opacity 0.1s;
 }
 
-/* White seams separate neighbouring states; the hovered one gets an ink outline. */
+/* Grey seams separate neighbouring states; the hovered one gets an ink outline. */
 .au-map__state path {
-  stroke: var(--surface);
+  stroke: var(--seam);
   stroke-width: 1.5;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
@@ -381,7 +420,7 @@ p {
 
 .au-map__state.is-active path,
 .au-map__state:focus-visible path {
-  stroke: var(--ink);
+  stroke: #666;
   stroke-width: 2;
 }
 
@@ -422,11 +461,6 @@ p {
   font-family: var(--font-display);
   font-size: 20px;
   text-transform: uppercase;
-}
-
-.map-card__hint {
-  margin-top: auto;
-  color: var(--blue-5);
 }
 
 /* ---- state map -------------------------------------------------------- */
@@ -475,7 +509,7 @@ p {
 
 .widgets {
   display: grid;
-  gap: 16px;
+  gap: 12px;
 }
 
 .widgets--three {
@@ -488,20 +522,18 @@ p {
 
 .widget {
   min-width: 0;
-  border: var(--border);
+  background: var(--surface);
+  border: var(--widget-border);
   border-radius: var(--widget-radius);
 }
 
 .widget__title {
   padding: 8px 22px;
-  border-bottom: var(--border);
-  font-size: 16px;
+  border-bottom: var(--widget-border);
+  color: var(--title);
+  font-family: var(--font-din);
+  font-size: 20px;
   font-weight: 600;
-}
-
-.widget__kind {
-  color: var(--muted);
-  font-weight: 400;
 }
 
 .widget__body {
@@ -683,6 +715,30 @@ p {
   opacity: 0.45;
 }
 
+.pie__label,
+.pie__total,
+.pie__total-caption {
+  text-anchor: middle;
+  dominant-baseline: central;
+  pointer-events: none;
+}
+
+.pie__label {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.pie__total {
+  fill: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.pie__total-caption {
+  fill: var(--muted);
+  font-size: 10px;
+}
+
 .pie__legend {
   display: flex;
   flex-direction: column;
@@ -819,9 +875,9 @@ p {
   opacity: 0.6;
 }
 
-/* Postcode borders: white seams inside the state's colour. */
+/* Postcode borders: grey seams inside the state's colour. */
 .state-shape__postcode {
-  stroke: var(--surface);
+  stroke: var(--seam);
   stroke-width: 0.6;
 }
 
@@ -830,11 +886,11 @@ p {
 }
 
 .state-shape__postcode:hover {
-  fill: #777;
+  fill: #e6e6e6;
 }
 
 .state-shape__selected {
-  fill: var(--ink);
+  fill: #ccc;
   stroke: var(--ink);
   stroke-width: 2;
   pointer-events: none;
@@ -894,7 +950,7 @@ p {
 
 .state-shape__outline {
   fill: none;
-  stroke: var(--ink);
+  stroke: #666;
   stroke-width: 1.25;
   pointer-events: none;
 }
@@ -910,7 +966,7 @@ p {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-  margin-top: 16px;
+  margin: 16px 0;
 }
 
 .state-switch a {
@@ -939,12 +995,6 @@ p {
   width: 10px;
   height: 10px;
   border: 1px solid var(--ink);
-}
-
-.details__hint {
-  margin: 10px 0 16px;
-  color: var(--blue-5);
-  font-size: 15px;
 }
 
 .stats {
@@ -995,7 +1045,28 @@ p {
   }
 
   .kpis {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  /* Two cards per row on a phone: tighten up so "Transactions" still fits beside its icon. */
+  .kpi {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .kpi__icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .kpi__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .kpi__label {
+    font-size: 13px;
   }
 
   .map-card__map {
@@ -1013,5 +1084,10 @@ p {
   .topbar {
     padding-right: 16px;
     padding-left: 16px;
+  }
+
+  .topbar {
+    margin-right: 16px;
+    margin-left: 16px;
   }
 }
