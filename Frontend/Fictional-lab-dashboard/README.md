@@ -6,8 +6,8 @@ separate from `Fictional-lab-frontend` and shares no code with it.
 | Route | Screen |
 |---|---|
 | `/login` | Split sign-in page |
-| `/` | Sales overview: KPI strip, state heat map, widget row |
-| `/states/:code` | State details, e.g. `/states/vic` |
+| `/` | Country Economy: KPI strip, map of Australia by state, widget row |
+| `/states/:code` | State Economy: postcode map and widgets for one state, e.g. `/states/vic` |
 
 ## Run it
 

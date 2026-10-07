@@ -12,6 +12,7 @@
   --blue-5: #3d5f85;
   --error: #a4262c;
   --border: 1.5px solid var(--ink);
+  --widget-radius: 10px;
   --font-body: "Barlow", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: "Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
 }
@@ -218,13 +219,28 @@ p {
 }
 
 .topbar__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 10px;
   color: var(--ink);
   font-family: var(--font-display);
-  font-size: 26px;
+  font-size: clamp(18px, 2.6vw, 26px);
   font-weight: 700;
-  text-decoration: none;
   text-transform: uppercase;
-  white-space: nowrap;
+}
+
+.topbar__title a {
+  color: var(--blue-5);
+  text-decoration: none;
+}
+
+.topbar__title a:hover {
+  text-decoration: underline;
+}
+
+.topbar__separator {
+  color: var(--muted);
 }
 
 .topbar__actions {
@@ -307,8 +323,9 @@ p {
 .kpi {
   display: flex;
   flex-direction: column;
-  padding: 12px 16px;
+  padding: 12px 22px;
   border: var(--border);
+  border-radius: var(--widget-radius);
 }
 
 .kpi__label {
@@ -329,8 +346,9 @@ p {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 280px;
   margin: 20px 0;
-  padding: 16px;
+  padding: 20px;
   border: var(--border);
+  border-radius: var(--widget-radius);
 }
 
 .map-card__map {
@@ -471,10 +489,11 @@ p {
 .widget {
   min-width: 0;
   border: var(--border);
+  border-radius: var(--widget-radius);
 }
 
 .widget__title {
-  padding: 6px 12px;
+  padding: 8px 22px;
   border-bottom: var(--border);
   font-size: 16px;
   font-weight: 600;
@@ -486,7 +505,7 @@ p {
 }
 
 .widget__body {
-  padding: 14px 12px 12px;
+  padding: 14px 16px 16px;
 }
 
 /* ---- charts ----------------------------------------------------------- */

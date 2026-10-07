@@ -16,7 +16,7 @@ export function App() {
         path="*"
         element={
           <p className="page-message">
-            Page not found. <Link to="/">Back to sales overview</Link>
+            Page not found. <Link to="/">Back to Country Economy</Link>
           </p>
         }
       />

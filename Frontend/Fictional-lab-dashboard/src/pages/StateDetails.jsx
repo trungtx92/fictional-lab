@@ -37,7 +37,7 @@ export function StateDetails() {
       <main className={`page__body ${loading ? "is-loading" : ""}`}>
         {error && (
           <p className="page-message">
-            {error}. <Link to={{ pathname: "/", search }}>Back to sales overview</Link>
+            {error}. <Link to={{ pathname: "/", search }}>Back to Country Economy</Link>
           </p>
         )}
         {!current && !error && <p className="page-message">Loading…</p>}
