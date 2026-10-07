@@ -8,32 +8,33 @@
 //   txns      - number of transactions
 //   stores    - number of stores (does not change with date range or category)
 //   revenue   - sales in AUD
-//   newShare  - fraction of customers who are new (0.38 = 38% new, 62% returning)
 // The columns sum to the overview KPIs in the wireframe (12,480 customers,
 // 48,210 transactions, 36 stores), and VIC matches the details wireframe.
 const STATES = [
-  { code: "NSW", name: "New South Wales", customers: 3980, txns: 15640, stores: 10, revenue: 2800000, newShare: 0.34 },
-  { code: "VIC", name: "Victoria", customers: 3410, txns: 11920, stores: 9, revenue: 2100000, newShare: 0.38 },
-  { code: "QLD", name: "Queensland", customers: 2390, txns: 9480, stores: 7, revenue: 1600000, newShare: 0.41 },
-  { code: "WA", name: "Western Australia", customers: 1210, txns: 4930, stores: 4, revenue: 830000, newShare: 0.36 },
-  { code: "SA", name: "South Australia", customers: 820, txns: 3370, stores: 3, revenue: 560000, newShare: 0.31 },
-  { code: "TAS", name: "Tasmania", customers: 270, txns: 1150, stores: 1, revenue: 190000, newShare: 0.29 },
-  { code: "ACT", name: "Australian Capital Territory", customers: 250, txns: 1060, stores: 1, revenue: 180000, newShare: 0.44 },
-  { code: "NT", name: "Northern Territory", customers: 150, txns: 660, stores: 1, revenue: 110000, newShare: 0.33 },
+  { code: "NSW", name: "New South Wales", customers: 3980, txns: 15640, stores: 10, revenue: 2800000 },
+  { code: "VIC", name: "Victoria", customers: 3410, txns: 11920, stores: 9, revenue: 2100000 },
+  { code: "QLD", name: "Queensland", customers: 2390, txns: 9480, stores: 7, revenue: 1600000 },
+  { code: "WA", name: "Western Australia", customers: 1210, txns: 4930, stores: 4, revenue: 830000 },
+  { code: "SA", name: "South Australia", customers: 820, txns: 3370, stores: 3, revenue: 560000 },
+  { code: "TAS", name: "Tasmania", customers: 270, txns: 1150, stores: 1, revenue: 190000 },
+  { code: "ACT", name: "Australian Capital Territory", customers: 250, txns: 1060, stores: 1, revenue: 180000 },
+  { code: "NT", name: "Northern Territory", customers: 150, txns: 660, stores: 1, revenue: 110000 },
 ];
 
-// Store names per state, for "Customers by store". Each list's length equals
-// that state's `stores` count above. The first entry is the CBD store, which
+// Store names per state, for "Revenue by store" and "Customers by store". Each list's length equals
+// that state's `stores` count above. These are the stores' own trading names,
+// not the suburb or postcode they sit in, and are kept to about 15 characters
+// so they fit under a bar. The first entry is the flagship city store, which
 // gets the largest share of customers in the whole-state view.
 const STORES = {
-  NSW: ["Sydney CBD", "Parramatta", "Bondi Junction", "Chatswood", "Newcastle", "Wollongong", "Penrith", "Liverpool", "Albury", "Coffs Harbour"],
-  VIC: ["Melbourne CBD", "Chadstone", "Geelong", "Ballarat", "Bendigo", "Doncaster", "Frankston", "Werribee", "Shepparton"],
-  QLD: ["Brisbane CBD", "Gold Coast", "Sunshine Coast", "Cairns", "Townsville", "Toowoomba", "Chermside"],
-  WA: ["Perth CBD", "Fremantle", "Joondalup", "Bunbury"],
-  SA: ["Adelaide CBD", "Glenelg", "Mount Gambier"],
-  TAS: ["Hobart"],
-  ACT: ["Canberra"],
-  NT: ["Darwin"],
+  NSW: ["Sydney Central", "Westpoint Plaza", "Bondi Outlet", "Northshore Mall", "Hunter Market", "Illawarra Plaza", "Nepean Outlet", "Macarthur Mall", "Murray Market", "Coastline Plaza"],
+  VIC: ["Yarra Central", "Eastside Plaza", "Bayview Outlet", "Goldfields Mall", "Lakeside Outlet", "Hilltop Market", "Peninsula Mall", "Westgate Outlet", "Valley Market"],
+  QLD: ["River City Mall", "Surfside Plaza", "Sunshine Outlet", "Reef Market", "Tropic Plaza", "Downs Market", "Northside Mall"],
+  WA: ["Swan Central", "Riverton Plaza", "Portside Market", "Sunset Outlet"],
+  SA: ["Torrens Central", "Hilltown Market", "Seaview Plaza"],
+  TAS: ["Derwent Market"],
+  ACT: ["Capital Plaza"],
+  NT: ["Top End Outlet"],
 };
 
 // How each date range changes the baseline, keyed by the range ids in filters.js.
@@ -162,11 +163,6 @@ function txnSeries(state, range, category) {
   return spread(state.txns, RANGE_MODEL[range].points, `txns:${state.code}:${range}:${category}`);
 }
 
-function newShare(base, category) {
-  const shift = category ? (rand(`mix:${base.code}:${category}`) - 0.5) * 0.08 : 0;
-  return base.newShare + shift;
-}
-
 export function getOverview({ range, category }) {
   const states = STATES.map((base) => stateTotals(base, range, category));
   const customers = sum(states.map((s) => s.customers));
@@ -197,7 +193,8 @@ export function getOverview({ range, category }) {
         ? CATEGORY_MODEL[category].products
         : sum(Object.values(CATEGORY_MODEL).map((c) => c.products)),
     },
-    states,
+    // Per-state transactions only feed the chart below; the map panel doesn't show them.
+    states: states.map(({ txns, ...shown }) => shown),
     txnsOverTime: { labels: periodLabels(range), values: txnValues },
     topProducts,
     genderDistribution: [
@@ -208,18 +205,16 @@ export function getOverview({ range, category }) {
 }
 
 // Each postcode gets its own character, seeded by the postcode alone so it
-// stays the same across date ranges and categories: its size, how many of its
-// customers are new, which store they favour, and whether it is growing or
-// shrinking. Sizes are deliberately generous (1-8% of the state) so the charts
-// have enough volume to show a shape; they are not meant to add up to the state.
+// stays the same across date ranges and categories: its size, which store its
+// customers favour, and whether it is growing or shrinking. Sizes are
+// deliberately generous (1-8% of the state) so the charts have enough volume
+// to show a shape; they are not meant to add up to the state.
 function postcodeProfile(postcode) {
   const next = rng(`postcode:${postcode}`);
   return {
     share: 0.01 + 0.07 * next(),
-    newShare: 0.15 + 0.6 * next(),
     homeStore: next(),
     txns: { growth: -0.6 + 1.8 * next(), wave: 0.1 + 0.3 * next(), phase: next() * Math.PI * 2 },
-    customers: { growth: -0.5 + 1.5 * next(), wave: 0.05 + 0.2 * next(), phase: next() * Math.PI * 2 },
   };
 }
 
@@ -237,9 +232,8 @@ export function getStateDetails(code, { range, category, postcode }) {
   }
   const { points } = RANGE_MODEL[range];
   const key = `${base.code}:${range}:${category}:${postcode ?? ""}`;
-  const newCustomers = Math.round(state.customers * (profile?.newShare ?? newShare(base, category)));
 
-  // State view: the first (CBD) store leads. Postcode view: its nearest store dominates.
+  // State view: the first (flagship) store leads. Postcode view: its nearest store dominates.
   const stores = STORES[base.code];
   const homeStore = profile ? Math.floor(profile.homeStore * stores.length) : -1;
   const storeNext = rng(`stores:${key}`);
@@ -250,20 +244,32 @@ export function getStateDetails(code, { range, category, postcode }) {
   );
   const storeWeightTotal = sum(storeWeights);
 
+  // Stores differ in how much each customer spends, so the revenue ranking is
+  // not just the customer ranking again.
+  const revenueWeights = stores.map((name, i) => storeWeights[i] * (0.75 + 0.5 * rand(`spend:${base.code}:${name}`)));
+  const revenueWeightTotal = sum(revenueWeights);
+
   const txns = spread(state.txns, points, `txns:${key}`, profile?.txns);
+
+  // Same male share as the overview's gender split, so the two pages agree.
+  const maleRevenue = Math.round(state.revenue * (0.44 + 0.12 * rand(`gender:${base.code}:${category}`)));
 
   return {
     state,
-    postcode: postcode || null,
-    states: STATES.map((s) => stateTotals(s, range, category)),
-    newVsReturning: [
-      { name: "new", value: newCustomers },
-      { name: "returning", value: state.customers - newCustomers },
-    ],
-    customersVsTxns: {
+    // Only what the state switcher needs.
+    states: STATES.map(({ code, name }) => ({ code, name })),
+    // The five highest-earning stores, best first.
+    revenueByStore: stores
+      .map((name, i) => ({
+        name,
+        value: Math.round((state.revenue * revenueWeights[i]) / revenueWeightTotal),
+      }))
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 5),
+    revenueByGender: {
       labels: periodLabels(range),
-      customers: spread(state.customers, points, `customers:${key}`, { growth: 0.25, ...profile?.customers }),
-      txns,
+      male: spread(maleRevenue, points, `revenue:male:${key}`, profile?.txns),
+      female: spread(state.revenue - maleRevenue, points, `revenue:female:${key}`, profile?.txns),
     },
     customersByStore: stores.map((name, i) => ({
       name,

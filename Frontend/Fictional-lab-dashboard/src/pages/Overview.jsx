@@ -31,7 +31,7 @@ export function Overview() {
         title: "All states",
         revenue: data.states.reduce((acc, s) => acc + s.revenue, 0),
         customers: data.kpis.customers,
-        txns: data.kpis.transactions,
+        stores: data.kpis.stores,
       };
 
   return (
@@ -70,12 +70,12 @@ export function Overview() {
                 </h3>
                 <p>Revenue {formatRevenue(panel.revenue)}</p>
                 <p>Customers {formatNumber(panel.customers)}</p>
-                <p>Txns {formatNumber(panel.txns)}</p>
+                <p>Stores {formatNumber(panel.stores)}</p>
               </div>
             </section>
 
             <div className="widgets widgets--three">
-              <Widget title="Txns over time">
+              <Widget title="Transactions over time">
                 <LineChart
                   labels={data.txnsOverTime.labels}
                   series={[{ name: "Transactions", values: data.txnsOverTime.values }]}

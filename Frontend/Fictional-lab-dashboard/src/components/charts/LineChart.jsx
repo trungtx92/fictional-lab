@@ -21,7 +21,8 @@ function niceTicks(min, max) {
   return ticks;
 }
 
-// series: [{ name, values }], all sharing one y-axis and the same `labels`.
+// series: [{ name, values, color? }], all sharing one y-axis and the same `labels`.
+// `color` overrides the default blue for that series and draws it solid.
 export function LineChart({ labels, series, height = 190, formatValue = formatNumber, ariaLabel }) {
   const [ref, width] = useWidth();
   const [active, setActive] = useState(null);
@@ -97,9 +98,9 @@ export function LineChart({ labels, series, height = 190, formatValue = formatNu
             <polyline
               key={s.name}
               fill="none"
-              stroke={STYLES[n].color}
+              stroke={s.color ?? STYLES[n].color}
               strokeWidth="2"
-              strokeDasharray={STYLES[n].dash}
+              strokeDasharray={s.color ? undefined : STYLES[n].dash}
               strokeLinejoin="round"
               strokeLinecap="round"
               points={s.values.map((v, i) => `${x(i)},${y(v)}`).join(" ")}
@@ -112,7 +113,7 @@ export function LineChart({ labels, series, height = 190, formatValue = formatNu
                 cx={x(active)}
                 cy={y(s.values[active])}
                 r="4"
-                fill={STYLES[n].color}
+                fill={s.color ?? STYLES[n].color}
                 stroke="#fff"
                 strokeWidth="2"
               />
@@ -128,7 +129,7 @@ export function LineChart({ labels, series, height = 190, formatValue = formatNu
           <strong>{labels[active]}</strong>
           {series.map((s, n) => (
             <span key={s.name} className="chart__tooltip-row">
-              <i className="chart__swatch" style={{ background: STYLES[n].color }} />
+              <i className="chart__swatch" style={{ background: s.color ?? STYLES[n].color }} />
               {s.name}
               <b>{formatValue(s.values[active])}</b>
             </span>
@@ -146,9 +147,9 @@ export function LineChart({ labels, series, height = 190, formatValue = formatNu
                   x2="21"
                   y1="4"
                   y2="4"
-                  stroke={STYLES[n].color}
+                  stroke={s.color ?? STYLES[n].color}
                   strokeWidth="2"
-                  strokeDasharray={STYLES[n].dash}
+                  strokeDasharray={s.color ? undefined : STYLES[n].dash}
                 />
               </svg>
               {s.name}

@@ -1,19 +1,6 @@
 import { useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext.jsx";
-import { StateMap } from "../components/StateMap.jsx";
-
-// Relative shading only, for the decorative heat-map preview.
-const PREVIEW_STATES = [
-  { code: "WA", revenue: 3 },
-  { code: "NT", revenue: 1 },
-  { code: "SA", revenue: 3 },
-  { code: "QLD", revenue: 6 },
-  { code: "NSW", revenue: 10 },
-  { code: "VIC", revenue: 8 },
-  { code: "ACT", revenue: 1 },
-  { code: "TAS", revenue: 1 },
-];
 
 export function Login() {
   const { user, signIn, signInWithGoogle } = useAuth();
@@ -45,7 +32,6 @@ export function Login() {
   return (
     <div className="login">
       <div className="login__preview">
-        <StateMap states={PREVIEW_STATES} />
         <h1 className="login__tagline">
           Sales across Australia,
           <br />

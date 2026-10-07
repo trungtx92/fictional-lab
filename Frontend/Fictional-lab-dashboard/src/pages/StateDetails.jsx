@@ -8,17 +8,8 @@ import { TopBar } from "../components/TopBar.jsx";
 import { Widget } from "../components/Widget.jsx";
 import { BarChart } from "../components/charts/BarChart.jsx";
 import { LineChart } from "../components/charts/LineChart.jsx";
-import { PieChart } from "../components/charts/PieChart.jsx";
 import { useFilters } from "../filters.js";
 import { formatNumber, formatRevenue } from "../format.js";
-
-// Customers and transactions differ by a factor of ~3-4, so instead of a
-// second y-axis both are indexed to 100 at the start of the period (or at
-// the first non-zero period, which matters for a single postcode's small counts).
-const toIndex = (values) => {
-  const baseline = values.find((v) => v > 0) || 1;
-  return values.map((v) => Math.round((v / baseline) * 100));
-};
 
 export function StateDetails() {
   const { code } = useParams();
@@ -73,7 +64,7 @@ export function StateDetails() {
                   <dd>{formatNumber(current.state.customers)}</dd>
                 </div>
                 <div>
-                  <dt>Txns</dt>
+                  <dt>Transactions</dt>
                   <dd>{formatNumber(current.state.txns)}</dd>
                 </div>
                 {!postcode && (
@@ -92,17 +83,22 @@ export function StateDetails() {
             <div className="details__main">
               <CategoryFilter />
               <div className="widgets widgets--two">
-                <Widget title="New vs returning">
-                  <PieChart data={current.newVsReturning} ariaLabel="New versus returning customers" />
+                <Widget title="Revenue by store">
+                  <BarChart
+                    data={current.revenueByStore}
+                    formatValue={formatRevenue}
+                    ariaLabel="Top stores by revenue"
+                  />
                 </Widget>
-                <Widget title="Customers vs txns, start = 100">
+                <Widget title="Revenue by Genders">
                   <LineChart
-                    labels={current.customersVsTxns.labels}
+                    labels={current.revenueByGender.labels}
                     series={[
-                      { name: "customers", values: toIndex(current.customersVsTxns.customers) },
-                      { name: "txns", values: toIndex(current.customersVsTxns.txns) },
+                      { name: "Male", values: current.revenueByGender.male },
+                      { name: "Female", values: current.revenueByGender.female, color: "#c05621" },
                     ]}
-                    ariaLabel="Customers and transactions, indexed to 100 at the start of the period"
+                    formatValue={formatRevenue}
+                    ariaLabel="Revenue from male and female customers over time"
                   />
                 </Widget>
                 <Widget title="Customers by store">
