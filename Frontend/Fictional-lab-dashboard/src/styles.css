@@ -730,10 +730,58 @@ p {
   margin: 0;
 }
 
+.state-shape__frame {
+  position: relative;
+}
+
 .state-shape svg {
   display: block;
   width: 100%;
   max-height: 320px;
+  touch-action: pan-y;
+  user-select: none;
+}
+
+/* Zoomed in: the map can be dragged, so it takes over touch gestures too. */
+.state-shape svg.is-zoomed {
+  cursor: grab;
+  touch-action: none;
+}
+
+.state-shape svg.is-zoomed:active {
+  cursor: grabbing;
+}
+
+.state-shape__zoom {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.state-shape__zoom button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: var(--surface);
+  border: var(--border);
+  color: var(--ink);
+  font: inherit;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.state-shape__zoom button:hover:not(:disabled) {
+  background: var(--blue-1);
+}
+
+.state-shape__zoom button:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .state-shape--loading {
@@ -771,6 +819,45 @@ p {
   stroke: var(--ink);
   stroke-width: 2;
   pointer-events: none;
+}
+
+.details__place {
+  margin: -6px 0 10px;
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.state-shape__search {
+  position: relative;
+}
+
+.state-shape__suggestions {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 5;
+  margin: -1.5px 0 0;
+  padding: 0;
+  background: var(--surface);
+  border: var(--border);
+  list-style: none;
+}
+
+.state-shape__suggestions li {
+  display: flex;
+  gap: 10px;
+  padding: 5px 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.state-shape__suggestions li.is-active {
+  background: var(--blue-1);
 }
 
 .state-shape__input {

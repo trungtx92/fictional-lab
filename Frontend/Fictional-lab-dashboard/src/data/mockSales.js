@@ -2,6 +2,15 @@
 // (seeded by state / category / range) so the same filters always show the
 // same figures. The "last 30 days, all categories" totals match the wireframes.
 
+// Baseline figures per state for the default view: last 30 days, all
+// categories. Every other number in the app is derived from these.
+//   customers - distinct customers who bought in the period
+//   txns      - number of transactions
+//   stores    - number of stores (does not change with date range or category)
+//   revenue   - sales in AUD
+//   newShare  - fraction of customers who are new (0.38 = 38% new, 62% returning)
+// The columns sum to the overview KPIs in the wireframe (12,480 customers,
+// 48,210 transactions, 36 stores), and VIC matches the details wireframe.
 const STATES = [
   { code: "NSW", name: "New South Wales", customers: 3980, txns: 15640, stores: 10, revenue: 2800000, newShare: 0.34 },
   { code: "VIC", name: "Victoria", customers: 3410, txns: 11920, stores: 9, revenue: 2100000, newShare: 0.38 },
@@ -13,6 +22,9 @@ const STATES = [
   { code: "NT", name: "Northern Territory", customers: 150, txns: 660, stores: 1, revenue: 110000, newShare: 0.33 },
 ];
 
+// Store names per state, for "Customers by store". Each list's length equals
+// that state's `stores` count above. The first entry is the CBD store, which
+// gets the largest share of customers in the whole-state view.
 const STORES = {
   NSW: ["Sydney CBD", "Parramatta", "Bondi Junction", "Chatswood", "Newcastle", "Wollongong", "Penrith", "Liverpool", "Albury", "Coffs Harbour"],
   VIC: ["Melbourne CBD", "Chadstone", "Geelong", "Ballarat", "Bendigo", "Doncaster", "Frankston", "Werribee", "Shepparton"],
@@ -24,6 +36,11 @@ const STORES = {
   NT: ["Darwin"],
 };
 
+// How each date range changes the baseline, keyed by the range ids in filters.js.
+//   scale  - multiplier on the 30-day figures (7 days is about a quarter of a
+//            month, 12 months a bit under 12x to allow for growth over the year)
+//   points - how many points the time-series charts plot
+//   unit   - what one point covers: a day, a week or a month
 const RANGE_MODEL = {
   "7d": { scale: 0.24, points: 7, unit: "day" },
   "30d": { scale: 1, points: 30, unit: "day" },
@@ -31,6 +48,10 @@ const RANGE_MODEL = {
   "12m": { scale: 11.4, points: 12, unit: "month" },
 };
 
+// How each product category narrows the figures, keyed by the category ids in filters.js.
+//   share    - fraction of all sales that fall in the category (shares sum to 1);
+//              each state varies this by up to +/-15% so states don't look identical
+//   products - number of products in the category (sums to the 1,204 Products KPI)
 const CATEGORY_MODEL = {
   electronics: { share: 0.24, products: 268 },
   apparel: { share: 0.27, products: 342 },
@@ -39,7 +60,8 @@ const CATEGORY_MODEL = {
   sports: { share: 0.12, products: 139 },
 };
 
-// [name, category, share of all units sold]
+// Product catalogue for "Top products": [name, category id, share of all units sold].
+// The chart shows the five best sellers, or the five in the selected category.
 const PRODUCTS = [
   ["Wireless Earbuds", "electronics", 0.074],
   ["USB-C Charger", "electronics", 0.058],

@@ -23,6 +23,8 @@ npm run dev      # http://localhost:5174
   Generated from the ABS ASGS Edition 3 (2021) State and Postal Area (POA) boundary files
   (CC BY 4.0), clipped to each state and simplified with mapshaper. POAs are the ABS
   approximation of Australia Post postcodes, not the official delivery areas.
+  Each postcode also carries its locality (suburb/town) names, main one first, taken from the
+  community-maintained list at github.com/matthewproctor/australianpostcodes.
 
 ## Mock data and auth
 

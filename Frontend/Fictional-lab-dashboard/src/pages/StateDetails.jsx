@@ -48,18 +48,6 @@ export function StateDetails() {
               <h1 className="details__code" title={current.state.name}>
                 {current.state.code}
               </h1>
-              <p className="details__scope">
-                {postcode ? (
-                  <>
-                    Postcode <strong>{postcode}</strong>
-                    <button type="button" className="link-button" onClick={() => setPostcode("")}>
-                      show whole state
-                    </button>
-                  </>
-                ) : (
-                  "Whole state"
-                )}
-              </p>
               <StateShape
                 code={current.state.code}
                 name={current.state.name}
