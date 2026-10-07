@@ -11,10 +11,20 @@ separate from `Fictional-lab-frontend` and shares no code with it.
 
 ## Run it
 
+Start the API first (`Backend/Fictional-lab-dashboard-backend`), then the app:
+
 ```bash
+# in Backend/Fictional-lab-dashboard-backend
+npm install
+npm run dev      # http://localhost:8081
+
+# in Frontend/Fictional-lab-dashboard
 npm install
 npm run dev      # http://localhost:5174
 ```
+
+The app calls `http://localhost:8081` unless `VITE_API_BASE_URL` is set, e.g. in a
+`.env.local` in this folder.
 
 ## Map data
 
@@ -26,12 +36,12 @@ npm run dev      # http://localhost:5174
   Each postcode also carries its locality (suburb/town) names, main one first, taken from the
   community-maintained list at github.com/matthewproctor/australianpostcodes.
 
-## Mock data and auth
+## Data and auth
 
-Nothing calls the backend yet: it has no login or aggregate (per-state, over-time) endpoints.
-
-- `src/api/client.js` is the only data entry point. Each function resolves from
-  `src/data/mockSales.js`; replace the bodies with `fetch()` calls when endpoints exist.
-- Sign-in accepts any well-formed email with a non-empty password. "Continue with Gmail"
-  signs in a demo user. The session is kept in `localStorage` ("Remember me") or `sessionStorage`.
+- `src/api/client.js` is the only data entry point. The overview and state pages fetch from
+  `Fictional-lab-dashboard-backend` (`GET /api/overview`, `GET /api/states/:code`), which
+  serves mock aggregates from its `src/data/mockSales.js`.
+- Sign-in is still mocked in the browser: it accepts any well-formed email with a non-empty
+  password. "Continue with Gmail" signs in a demo user. The session is kept in `localStorage`
+  ("Remember me") or `sessionStorage`.
 - Date range and product category are stored in the URL (`?range=90d&category=apparel`).

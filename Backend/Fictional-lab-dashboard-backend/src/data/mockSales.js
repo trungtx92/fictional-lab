@@ -10,7 +10,7 @@
 //   revenue   - sales in AUD
 // The columns sum to the overview KPIs in the wireframe (12,480 customers,
 // 48,210 transactions, 36 stores), and VIC matches the details wireframe.
-const STATES = [
+export const STATES = [
   { code: "NSW", name: "New South Wales", customers: 3980, txns: 15640, stores: 10, revenue: 2800000 },
   { code: "VIC", name: "Victoria", customers: 3410, txns: 11920, stores: 9, revenue: 2100000 },
   { code: "QLD", name: "Queensland", customers: 2390, txns: 9480, stores: 7, revenue: 1600000 },
@@ -42,7 +42,7 @@ const STORES = {
 //            month, 12 months a bit under 12x to allow for growth over the year)
 //   points - how many points the time-series charts plot
 //   unit   - what one point covers: a day, a week or a month
-const RANGE_MODEL = {
+export const RANGE_MODEL = {
   "7d": { scale: 0.24, points: 7, unit: "day" },
   "30d": { scale: 1, points: 30, unit: "day" },
   "90d": { scale: 2.9, points: 13, unit: "week" },
@@ -53,7 +53,7 @@ const RANGE_MODEL = {
 //   share    - fraction of all sales that fall in the category (shares sum to 1);
 //              each state varies this by up to +/-15% so states don't look identical
 //   products - number of products in the category (sums to the 1,204 Products KPI)
-const CATEGORY_MODEL = {
+export const CATEGORY_MODEL = {
   electronics: { share: 0.24, products: 268 },
   apparel: { share: 0.27, products: 342 },
   home: { share: 0.19, products: 251 },
