@@ -1,4 +1,4 @@
-name: Frontend Fictional Lab
+name: Frontend Fictional Lab Dashboard
 on:
   workflow_dispatch:
 
