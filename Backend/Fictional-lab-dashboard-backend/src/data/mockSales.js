@@ -10,7 +10,7 @@
 //   revenue   - sales in AUD
 // The columns sum to the overview KPIs in the wireframe (12,480 customers,
 // 48,210 transactions, 36 stores), and VIC matches the details wireframe.
-export const STATES = [
+export const ALL_STATES = [
   { code: "NSW", name: "New South Wales", customers: 3980, txns: 15640, stores: 10, revenue: 2800000 },
   { code: "VIC", name: "Victoria", customers: 3410, txns: 11920, stores: 9, revenue: 2100000 },
   { code: "QLD", name: "Queensland", customers: 2390, txns: 9480, stores: 7, revenue: 1600000 },
@@ -26,7 +26,7 @@ export const STATES = [
 // not the suburb or postcode they sit in, and are kept to about 15 characters
 // so they fit under a bar. The first entry is the flagship city store, which
 // gets the largest share of customers in the whole-state view.
-const STORES = {
+const ALL_STORES = {
   NSW: ["Sydney Central", "Westpoint Plaza", "Bondi Outlet", "Northshore Mall", "Hunter Market", "Illawarra Plaza", "Nepean Outlet", "Macarthur Mall", "Murray Market", "Coastline Plaza"],
   VIC: ["Yarra Central", "Eastside Plaza", "Bayview Outlet", "Goldfields Mall", "Lakeside Outlet", "Hilltop Market", "Peninsula Mall", "Westgate Outlet", "Valley Market"],
   QLD: ["River City Mall", "Surfside Plaza", "Sunshine Outlet", "Reef Market", "Tropic Plaza", "Downs Market", "Northside Mall"],
@@ -63,7 +63,7 @@ export const CATEGORY_MODEL = {
 
 // Product catalogue for "Top products": [name, category id, share of all units sold].
 // The chart shows the five best sellers, or the five in the selected category.
-const PRODUCTS = [
+const ALL_PRODUCTS = [
   ["Wireless Earbuds", "electronics", 0.074],
   ["USB-C Charger", "electronics", 0.058],
   ["Bluetooth Speaker", "electronics", 0.041],
@@ -164,15 +164,15 @@ function txnSeries(state, range, category) {
 }
 
 export function getOverview({ range, category }) {
-  const states = STATES.map((base) => stateTotals(base, range, category));
+  const states = ALL_STATES.map((base) => stateTotals(base, range, category));
   const customers = sum(states.map((s) => s.customers));
   const transactions = sum(states.map((s) => s.txns));
 
   const perState = states.map((s) => txnSeries(s, range, category));
   const txnValues = perState[0].map((_, i) => sum(perState.map((series) => series[i])));
 
-  const allTxns = sum(STATES.map((s) => s.txns)) * RANGE_MODEL[range].scale;
-  const topProducts = PRODUCTS.filter(([, cat]) => !category || cat === category)
+  const allTxns = sum(ALL_STATES.map((s) => s.txns)) * RANGE_MODEL[range].scale;
+  const topProducts = ALL_PRODUCTS.filter(([, cat]) => !category || cat === category)
     .map(([name, , share]) => ({
       name,
       value: Math.round(allTxns * 1.6 * share * (0.9 + 0.2 * rand(`product:${range}:${name}`))),
@@ -220,7 +220,7 @@ function postcodeProfile(postcode) {
 
 // With `postcode` set, every figure is narrowed to customers living in that postcode.
 export function getStateDetails(code, { range, category, postcode }) {
-  const base = STATES.find((s) => s.code === code.toUpperCase());
+  const base = ALL_STATES.find((s) => s.code === code.toUpperCase());
   if (!base) throw new Error(`Unknown state "${code}"`);
 
   const state = stateTotals(base, range, category);
@@ -234,7 +234,7 @@ export function getStateDetails(code, { range, category, postcode }) {
   const key = `${base.code}:${range}:${category}:${postcode ?? ""}`;
 
   // State view: the first (flagship) store leads. Postcode view: its nearest store dominates.
-  const stores = STORES[base.code];
+  const stores = ALL_STORES[base.code];
   const homeStore = profile ? Math.floor(profile.homeStore * stores.length) : -1;
   const storeNext = rng(`stores:${key}`);
   const storeWeights = stores.map((_, i) =>
@@ -257,7 +257,7 @@ export function getStateDetails(code, { range, category, postcode }) {
   return {
     state,
     // Only what the state switcher needs.
-    states: STATES.map(({ code, name }) => ({ code, name })),
+    states: ALL_STATES.map(({ code, name }) => ({ code, name })),
     // The five highest-earning stores, best first.
     revenueByStore: stores
       .map((name, i) => ({

@@ -40,7 +40,7 @@ The app calls `http://localhost:8081` unless `VITE_API_BASE_URL` is set, e.g. in
 
 - `src/api/client.js` is the only data entry point. The overview and state pages fetch from
   `Fictional-lab-dashboard-backend` (`GET /api/overview`, `GET /api/states/:code`), which
-  serves mock aggregates from its `src/data/mockSales.js`.
+  serves aggregates from the PostgreSQL `consumption` schema (`src/data/sales.js`).
 - Sign-in is still mocked in the browser: it accepts any well-formed email with a non-empty
   password. "Continue with Gmail" signs in a demo user. The session is kept in `localStorage`
   ("Remember me") or `sessionStorage`.

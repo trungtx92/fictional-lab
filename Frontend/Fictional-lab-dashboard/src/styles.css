@@ -269,6 +269,147 @@ p {
   gap: clamp(10px, 2vw, 24px);
 }
 
+.topbar__add {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  color: green;
+  background: var(--surface);
+  border: 2px solid green;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.topbar__add:hover {
+  background: var(--page);
+  transform: scale(1.1);
+}
+
+/* ---- chat box --------------------------------------------------------- */
+
+.chat {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, calc(100vw - 32px));
+  height: min(600px, calc(100vh - 48px));
+  background: var(--surface);
+  border: var(--widget-border);
+  border-radius: var(--widget-radius);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 0.18);
+}
+
+.chat[hidden] {
+  display: none;
+}
+
+.chat__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px 8px 18px;
+  border-bottom: var(--widget-border);
+}
+
+.chat__head h2 {
+  color: var(--title);
+  font-family: var(--font-din);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.chat__close {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  font: inherit;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.chat__close:hover {
+  color: var(--ink);
+}
+
+.chat__messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.chat__message {
+  max-width: 100%;
+  font-size: 15px;
+  overflow-wrap: anywhere;
+}
+
+.chat__message--user {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: 8px 12px;
+  background: var(--blue-1);
+  border-radius: var(--widget-radius);
+}
+
+.chat__message--assistant {
+  align-self: stretch;
+}
+
+.chat__message.is-error {
+  color: var(--error);
+}
+
+.chat__waiting {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.chat__chart {
+  margin: 10px 0 0;
+  padding: 10px 12px 12px;
+  border: var(--widget-border);
+  border-radius: var(--widget-radius);
+}
+
+.chat__chart figcaption {
+  margin-bottom: 8px;
+  color: var(--title);
+  font-family: var(--font-din);
+  font-weight: 600;
+}
+
+.chat__form {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  border-top: var(--widget-border);
+}
+
+.chat__form .input {
+  min-width: 0;
+  border: var(--widget-border);
+  border-radius: var(--widget-radius);
+}
+
+.chat__form .button {
+  padding: 8px 16px;
+  border: var(--widget-border);
+  border-radius: var(--widget-radius);
+}
+
 .account {
   position: relative;
 }
