@@ -18,6 +18,6 @@ jobs:
       - uses: google-github-actions/setup-gcloud@v2
       - run: |
           gcloud run deploy fictional-lab-frontend \
-            --source ./Frontend/Fictional-lab-frontend \
+            --source ./Frontend/Fictional-lab-dashboard \
             --region us-central1 \
             --allow-unauthenticated
