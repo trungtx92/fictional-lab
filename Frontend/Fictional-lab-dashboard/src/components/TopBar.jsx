@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { Link, useMatch } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext.jsx";
 import { RANGES, useFilters } from "../filters.js";
+import { ChatBox } from "./ChatBox.jsx";
 
 export function TopBar() {
   const { user, signOut } = useAuth();
-  const { range, setRange, search } = useFilters();
+  const { range, category, setRange, search } = useFilters();
   const onStatePage = useMatch("/states/:code");
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <header className="topbar">
@@ -24,6 +27,26 @@ export function TopBar() {
         )}
       </nav>
       <div className="topbar__actions">
+        <button
+          type="button"
+          className="topbar__add"
+          aria-label="Ask about the data"
+          aria-expanded={chatOpen}
+          onClick={() => setChatOpen((open) => !open)}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="20"
+            height="20"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.75"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            <path d="M12 5v14M5 12h14" />
+          </svg>
+        </button>
         <select
           className="select"
           aria-label="Date range"
@@ -48,6 +71,11 @@ export function TopBar() {
           </div>
         </details>
       </div>
+      <ChatBox
+        open={chatOpen}
+        onClose={() => setChatOpen(false)}
+        context={{ range, category, state: onStatePage?.params.code }}
+      />
     </header>
   );
 }
